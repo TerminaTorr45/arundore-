@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="fr" data-barba="wrapper">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Arundo Re — Réassureur global, flexible et résilient. Always around." />
+  <title>Arundo Re — Always around</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@300;400;500;600;700&family=Pinyon+Script&family=Audiowide&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Stack+Sans+Notch:wght@200..700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <!-- ============ INTRO / PRELOADER ============ -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <span class="preloader__panel preloader__panel--t"></span>
+    <span class="preloader__panel preloader__panel--b"></span>
+    <span class="preloader__panel preloader__panel--l"></span>
+    <span class="preloader__panel preloader__panel--r"></span>
+    <div class="preloader__center">
+      <h2 class="preloader__name">
+        <span class="preloader__tag">Always around</span>
+        <span class="preloader__name-inner">Arundo<span class="preloader__re">&nbsp;Re</span></span>
+        <span class="preloader__paris">Paris</span>
+      </h2>
+    </div>
+  </div>
+
+  <!-- ============ NAV (sticky) ============ -->
+  <header class="nav-sticky is-visible">
+    <a href="/" class="nav__logo" aria-label="Arundo Re">
+      <img src="assets/img/logo-arundore.png" alt="Arundo Re Paris" class="nav__logo-img" />
+    </a>
+
+    <nav class="nav__links" aria-label="Navigation principale">
+      <a href="#accueil"     class="nav-link"><span class="nav-link__inner"><span>Accueil</span><span aria-hidden="true">Accueil</span></span></a>
+      <a href="#decouvrir"   class="nav-link"><span class="nav-link__inner"><span>Nous découvrir</span><span aria-hidden="true">Nous découvrir</span></span></a>
+      <a href="#finances"    class="nav-link"><span class="nav-link__inner"><span>Informations financières</span><span aria-hidden="true">Informations financières</span></span></a>
+      <a href="#solutions"   class="nav-link"><span class="nav-link__inner"><span>Solutions</span><span aria-hidden="true">Solutions</span></span></a>
+      <a href="#engagements" class="nav-link"><span class="nav-link__inner"><span>Nos engagements</span><span aria-hidden="true">Nos engagements</span></span></a>
+      <a href="#carrieres"   class="nav-link"><span class="nav-link__inner"><span>Carrières</span><span aria-hidden="true">Carrières</span></span></a>
+      <a href="#presse"      class="nav-link"><span class="nav-link__inner"><span>Presse</span><span aria-hidden="true">Presse</span></span></a>
+    </nav>
+
+    <div class="nav__meta">
+      <a href="#contact" class="nav__cta">Contact</a>
+      <button type="button" class="menu-toggle" id="menuToggle" aria-label="Ouvrir le blog" aria-expanded="false">
+        <span class="menu-toggle__label">Blog</span>
+        <span class="menu-toggle__bars" aria-hidden="true">
+          <span class="menu-toggle__bar"></span>
+          <span class="menu-toggle__bar"></span>
+        </span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ SIDE MENU ============ -->
+  <div class="side-menu" id="sideMenu" aria-hidden="true">
+    <div class="side-menu__overlay" data-menu-close></div>
+
+    <aside class="side-menu__panel" role="dialog" aria-label="Menu principal" aria-modal="true">
+      <header class="side-menu__head">
+        <span class="side-menu__brand">Arundo&nbsp;Re</span>
+        <button class="side-menu__close" data-menu-close aria-label="Fermer le menu">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </header>
+
+      <nav class="side-menu__nav" aria-label="Navigation site">
+        <ul class="side-menu__list">
+          <li class="side-menu__item" style="--i:1">
+            <a href="#actualites" class="side-menu__link">
+              <span class="side-menu__num">01</span>
+              <span class="side-menu__label">Actualités Arundo Re</span>
+            </a>
+          </li>
+          <li class="side-menu__item" style="--i:2">
+            <a href="#tutos" class="side-menu__link">
+              <span class="side-menu__num">02</span>
+              <span class="side-menu__label">Les Tutos de la réassurance</span>
+            </a>
+          </li>
+          <li class="side-menu__item" style="--i:3">
+            <a href="#talks" class="side-menu__link">
+              <span class="side-menu__num">03</span>
+              <span class="side-menu__label">Arundo Re Talks</span>
+            </a>
+          </li>
+          <li class="side-menu__item" style="--i:4">
+            <a href="#women" class="side-menu__link">
+              <span class="side-menu__num">04</span>
+              <span class="side-menu__label">Women of Power</span>
+            </a>
+          </li>
+          <li class="side-menu__item" style="--i:5">
+            <a href="#etude" class="side-menu__link">
+              <span class="side-menu__num">05</span>
+              <span class="side-menu__label">Étude RC Automobile</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <footer class="side-menu__foot">
+        <div class="side-menu__foot-col">
+          <span class="side-menu__foot-label">Contact</span>
+          <a href="mailto:contact@arundo.re">contact@arundo.re</a>
+        </div>
+        <div class="side-menu__foot-col">
+          <span class="side-menu__foot-label">Suivre</span>
+          <div class="side-menu__socials">
+            <a href="#">LinkedIn</a>
+            <a href="#">YouTube</a>
+          </div>
+        </div>
+        <span class="side-menu__tag">Always around.</span>
+      </footer>
+    </aside>
+  </div>
+
+  <main data-barba="container" data-barba-namespace="home">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="hero__media">
+        <img src="assets/img/comex-2026.jpg" alt="Comité exécutif Arundo Re — 2026" />
+      </div>
+      <div class="hero__overlay"></div>
+
+      <div class="hero__grid">
+        <div class="hero__eyebrow">
+          <span class="dot"></span>
+          <span>Réassurance globale · Depuis 1947</span>
+        </div>
+
+        <h1 class="hero__title">
+          <span class="line"><span class="reveal">Always</span></span>
+          <span class="line"><span class="reveal reveal--italic">around.</span></span>
+        </h1>
+      </div>
+
+      <div class="hero__scroll">
+        <span>Scroll</span>
+        <svg width="10" height="40" viewBox="0 0 10 40"><line x1="5" y1="0" x2="5" y2="40" stroke="currentColor"/></svg>
+      </div>
+    </section>
+
+    <section class="hero__brand" aria-label="Arundo Re">
+      <a href="https://www.arundore.com/documents/d/arundore/arundo-re_rapport-annuel-260415_vdef" target="_blank" rel="noopener" class="vignette" data-tilt aria-label="Rapport d'activité 2025">
+        <div class="vignette__inner">
+          <img src="assets/img/vignette.png" alt="Rapport d'activité 2025" class="vignette__img" />
+        </div>
+        <span class="vignette__label">
+          <span class="vignette__label-line">Rapport d'Activité</span>
+          <span class="vignette__label-line">2025</span>
+        </span>
+      </a>
+      <span class="hero__brand-line">
+        <span class="hero__brand-word-wrap">
+          <span class="hero__brand-word">Arundo</span>
+        </span>
+        <span class="hero__brand-word hero__brand-word--accent">Re</span>
+      </span>
+      <span class="hero__brand-subtitle" aria-label="Qui sommes nous">
+        <span class="hero__brand-subtitle-part hero__brand-subtitle-part--left">
+          <span class="hero__brand-subtitle-text">Qui sommes</span>
+        </span>
+        <span class="hero__brand-subtitle-part hero__brand-subtitle-part--right">
+          <span class="hero__brand-subtitle-text">nous ?</span>
+        </span>
+      </span>
+    </section>
+
+    <!-- ============ ABOUT CARD ============ -->
+    <section class="about" id="about">
+      <div class="about__card">
+        <span class="about__dot about__dot--tl" aria-hidden="true"></span>
+        <span class="about__dot about__dot--tr" aria-hidden="true"></span>
+        <span class="about__dot about__dot--bl" aria-hidden="true"></span>
+        <span class="about__dot about__dot--br" aria-hidden="true"></span>
+        <p class="about__text">
+          Arundo Re est un réassureur de taille moyenne, avec une présence
+          de longue date en France et à l'international, et désormais dans
+          <strong>103 pays dans le monde</strong>, qui opère dans les branches
+          traditionnelles dommages aux biens et responsabilité civile, vie
+          et santé, ainsi que dans certaines branches de spécialités
+          (crédit, marine, aviation, spatial, agro).
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ VALUE CARDS ============ -->
+    <section class="values" id="values">
+      <div class="values__grid">
+
+        <article class="values__card">
+          <div class="values__icon" aria-hidden="true">
+            <img src="assets/img/icon-stylo.png" alt="" class="values__icon-img" />
+          </div>
+          <h3 class="values__title">Signature Arundo Re</h3>
+          <p class="values__text">
+            À l'image de notre nom, nous sommes flexibles et résilients,
+            décidés à accompagner nos clients en tout temps, et en tous lieux.
+            L'écoute attentive, la compréhension fine des besoins, la rapidité
+            des réponses apportées, l'esprit de partenariat sur le long terme
+            constituent la signature <strong>Arundo Re, Always around</strong>.
+          </p>
+        </article>
+
+        <article class="values__card">
+          <div class="values__icon" aria-hidden="true">
+            <img src="assets/img/main.png" alt="" class="values__icon-img" />
+          </div>
+          <h3 class="values__title">Notre engagement</h3>
+          <p class="values__text">
+            L'offre d'Arundo Re repose sur ses équipes internationales
+            alliant expertise technique et expérience commerciale, dont la
+            proximité avec ses clients permet de proposer des solutions
+            sur mesure, au plus près de vos besoins.
+          </p>
+        </article>
+
+        <article class="values__card">
+          <div class="values__icon" aria-hidden="true">
+            <img src="assets/img/duo.png" alt="" class="values__icon-img" />
+          </div>
+          <h3 class="values__title">Carrières</h3>
+          <p class="values__text">
+            Consciente que sa valeur ajoutée repose en grande partie sur
+            son capital humain, Arundo Re s'attache à offrir à ses
+            collaborateurs un environnement de travail attractif et
+            dynamique.
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============ VIDEO ============ -->
+    <section class="video-section" id="video">
+      <div class="video-wrap">
+        <video
+          class="video-el"
+          src="assets/video/CCRRE_Motion_VFinal_FRSubtitles.mp4"
+          playsinline
+          muted
+          preload="metadata"
+          controls
+          poster=""
+        ></video>
+      </div>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <section class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Réassurance Vie</span><span>·</span>
+        <span>Non-Vie</span><span>·</span>
+        <span>Spécialités</span><span>·</span>
+        <span>Catastrophes Naturelles</span><span>·</span>
+        <span>Cyber</span><span>·</span>
+        <span>Crédit &amp; Caution</span><span>·</span>
+        <span>Construction</span><span>·</span>
+        <span>Aviation</span><span>·</span>
+        <span>Marine</span><span>·</span>
+        <span>Réassurance Vie</span><span>·</span>
+        <span>Non-Vie</span><span>·</span>
+        <span>Spécialités</span><span>·</span>
+        <span>Catastrophes Naturelles</span><span>·</span>
+        <span>Cyber</span><span>·</span>
+      </div>
+    </section>
+
+    <!-- ============ INTRO / VALUE PROP ============ -->
+    <section class="intro" id="entreprise">
+      <div class="intro__grid">
+        <div class="intro__label">
+          <span>(01)</span>
+          <span>L'entreprise</span>
+        </div>
+        <h2 class="intro__title">
+          Un réassureur de <em>taille humaine</em>, à portée mondiale.
+        </h2>
+        <div class="intro__body">
+          <p>
+            Arundo Re est un réassureur indépendant, opérant dans plus de 100 pays.
+            Notre mission : transformer la complexité du risque en certitude pour
+            nos cédantes, partout où elles opèrent.
+          </p>
+          <p>
+            Nous combinons l'agilité d'une structure resserrée avec la profondeur
+            technique d'un acteur global — sur les lignes traditionnelles
+            comme sur les spécialités les plus pointues.
+          </p>
+          <a href="#solutions" class="link-arrow" data-cursor="hover">
+            <span>En savoir plus</span>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 13L13 1M13 1H4M13 1V10" stroke="currentColor" stroke-width="1.5"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ KEY METRICS ============ -->
+    <section class="metrics" id="chiffres">
+      <div class="metrics__head">
+        <div class="metrics__label">
+          <span>(02)</span>
+          <span>Chiffres clés 2025</span>
+        </div>
+        <h2 class="metrics__title">
+          La preuve <em>par les chiffres.</em>
+        </h2>
+      </div>
+
+      <div class="metrics__grid">
+        <article class="metric">
+          <div class="metric__num" data-count="218">0</div>
+          <div class="metric__plus"></div>
+          <p class="metric__label">Collaborateurs<br/>23 nationalités</p>
+        </article>
+
+        <article class="metric">
+          <div class="metric__num">€<span data-count="1427">0</span><span class="metric__unit">M</span></div>
+          <p class="metric__label">Primes brutes<br/>émises</p>
+        </article>
+
+        <article class="metric">
+          <div class="metric__num" data-count="103">0</div>
+          <div class="metric__plus">+</div>
+          <p class="metric__label">Pays<br/>couverts</p>
+        </article>
+
+        <article class="metric">
+          <div class="metric__num">A</div>
+          <p class="metric__label">Notation<br/>S&amp;P · AM Best</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ SOLUTIONS ============ -->
+    <section class="solutions" id="solutions">
+      <div class="solutions__head">
+        <div class="solutions__label">
+          <span>(03)</span>
+          <span>Solutions</span>
+        </div>
+        <h2 class="solutions__title">
+          Une expertise <em>multi-lignes,</em><br/> une seule promesse.
+        </h2>
+      </div>
+
+      <div class="solutions__list">
+        <a href="#" class="sol" data-cursor="hover">
+          <span class="sol__num">01</span>
+          <span class="sol__name">Vie &amp; Santé</span>
+          <span class="sol__tag">Long-terme</span>
+          <span class="sol__arrow">→</span>
+        </a>
+        <a href="#" class="sol" data-cursor="hover">
+          <span class="sol__num">02</span>
+          <span class="sol__name">Non-Vie Traditionnelle</span>
+          <span class="sol__tag">P&amp;C</span>
+          <span class="sol__arrow">→</span>
+        </a>
+        <a href="#" class="sol" data-cursor="hover">
+          <span class="sol__num">03</span>
+          <span class="sol__name">Spécialités</span>
+          <span class="sol__tag">Aviation · Marine · Crédit</span>
+          <span class="sol__arrow">→</span>
+        </a>
+        <a href="#" class="sol" data-cursor="hover">
+          <span class="sol__num">04</span>
+          <span class="sol__name">Catastrophes Naturelles</span>
+          <span class="sol__tag">Cat-Nat</span>
+          <span class="sol__arrow">→</span>
+        </a>
+        <a href="#" class="sol" data-cursor="hover">
+          <span class="sol__num">05</span>
+          <span class="sol__name">Cyber &amp; Risques émergents</span>
+          <span class="sol__tag">Nouveaux risques</span>
+          <span class="sol__arrow">→</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ LEADERSHIP ============ -->
+    <section class="leadership" id="leadership">
+      <div class="leadership__head">
+        <div class="leadership__label">
+          <span>(04)</span>
+          <span>Leadership</span>
+        </div>
+        <h2 class="leadership__title">
+          Le Comité Exécutif, <em>2026.</em>
+        </h2>
+      </div>
+
+      <figure class="leadership__media">
+        <img
+          src="assets/img/comex-2026.jpg"
+          alt="Comité exécutif Arundo Re — 2026"
+          loading="lazy"
+        />
+        <figcaption>Comité Exécutif Arundo Re — Paris, 2026</figcaption>
+      </figure>
+
+      <div class="leadership__body">
+        <p>
+          Une équipe de souscripteurs et de dirigeants expérimentés, organisée
+          autour des grandes régions du monde — pour une décision rapide, locale,
+          et un engagement durable auprès de nos cédantes.
+        </p>
+        <a href="#" class="link-arrow" data-cursor="hover">
+          <span>Voir tous les profils</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 13L13 1M13 1H4M13 1V10" stroke="currentColor" stroke-width="1.5"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ COMMITMENTS ============ -->
+    <section class="commit" id="engagements">
+      <div class="commit__head">
+        <div class="commit__label">
+          <span>(05)</span>
+          <span>Engagements</span>
+        </div>
+        <h2 class="commit__title">
+          Réassurer aujourd'hui, <em>protéger demain.</em>
+        </h2>
+      </div>
+
+      <div class="commit__grid">
+        <article class="commit__card">
+          <h3>Climat</h3>
+          <p>
+            Trajectoire alignée sur les Accords de Paris.
+            Intégration ESG dans la souscription des risques industriels.
+          </p>
+        </article>
+        <article class="commit__card">
+          <h3>Diversité</h3>
+          <p>
+            23 nationalités. Parité au Comité Exécutif.
+            Un index égalité professionnelle de premier rang.
+          </p>
+        </article>
+        <article class="commit__card">
+          <h3>Gouvernance</h3>
+          <p>
+            Capital indépendant. Décisions prises au plus près
+            des cédantes, sans hiérarchie superflue.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ CTA / FOOTER ============ -->
+    <section class="cta" id="contact">
+      <div class="cta__inner">
+        <p class="cta__small">Always around.</p>
+        <h2 class="cta__title">
+          Parlons de <em>votre prochain&nbsp;risque.</em>
+        </h2>
+        <a href="mailto:contact@arundo.re" class="cta__btn" data-cursor="hover">
+          <span>contact@arundo.re</span>
+          <svg width="18" height="18" viewBox="0 0 14 14" fill="none"><path d="M1 13L13 1M13 1H4M13 1V10" stroke="currentColor" stroke-width="1.5"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <footer class="footer" id="carrieres">
+      <div class="footer__top">
+        <div class="footer__col">
+          <h4>Bureau</h4>
+          <p>21 Boulevard Haussmann<br/>75009 Paris — France</p>
+        </div>
+        <div class="footer__col">
+          <h4>Contact</h4>
+          <p>+33 (0)1 00 00 00 00<br/>contact@arundo.re</p>
+        </div>
+        <div class="footer__col">
+          <h4>Suivre</h4>
+          <p>
+            <a href="#" data-cursor="hover">LinkedIn</a><br/>
+            <a href="#" data-cursor="hover">YouTube</a>
+          </p>
+        </div>
+        <div class="footer__col">
+          <h4>Newsletter</h4>
+          <form class="footer__form" onsubmit="event.preventDefault();">
+            <input type="email" placeholder="email@domaine.com" aria-label="Votre e-mail" required />
+            <button type="submit" aria-label="S'inscrire" data-cursor="hover">→</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer__big" aria-hidden="true">ARUNDO&nbsp;RE</div>
+
+      <div class="footer__bottom">
+        <span>© 2026 Arundo Re. Tous droits réservés.</span>
+        <span class="footer__legal">
+          <a href="#" data-cursor="hover">Mentions légales</a>
+          <a href="#" data-cursor="hover">Données personnelles</a>
+          <a href="#" data-cursor="hover">Accessibilité</a>
+        </span>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ============ LIBS ============ -->
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@barba/core@2.10.3/dist/barba.umd.js"></script>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
