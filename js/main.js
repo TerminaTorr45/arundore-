@@ -354,34 +354,39 @@ function sectionReveals() {
     });
   });
 
-  // video grows on scroll — scale from .42 up to 1 as section enters viewport
-  const videoWrap = document.querySelector(".video-wrap");
-  if (videoWrap) {
-    gsap.to(videoWrap, {
-      scale: 1,
-      ease: "none",
-      scrollTrigger: {
-        trigger: ".video-section",
-        start: "top 95%",
-        end: "top 25%",
-        scrub: 6,
-      },
-    });
-  }
+}
 
-  // play video when in viewport, pause when out
-  const videoEl = document.querySelector(".video-el");
-  if (videoEl) {
-    ScrollTrigger.create({
-      trigger: ".video-section",
-      start: "top 70%",
-      end: "bottom 30%",
-      onEnter:     () => videoEl.play().catch(() => {}),
-      onEnterBack: () => videoEl.play().catch(() => {}),
-      onLeave:     () => videoEl.pause(),
-      onLeaveBack: () => videoEl.pause(),
-    });
-  }
+/* ---------- VIDEO THUMBNAIL → MODAL ---------- */
+function initVideoPlayer() {
+  const trigger = document.getElementById("videoPlayer");
+  const modal = document.getElementById("videoModal");
+  const closeBtn = document.getElementById("videoModalClose");
+  const video = document.getElementById("videoModalEl");
+  if (!trigger || !modal || !closeBtn || !video) return;
+
+  const open = () => {
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    lockScroll();
+    video.currentTime = 0;
+    video.play().catch(() => {});
+  };
+  const close = () => {
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    video.pause();
+    unlockScroll();
+  };
+
+  trigger.addEventListener("click", open);
+  trigger.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
+  });
+  closeBtn.addEventListener("click", close);
+  modal.addEventListener("click", (e) => { if (e.target === modal) close(); });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("is-open")) close();
+  });
 }
 
 /* ---------- 3D TILT (vignette) ---------- */
@@ -396,7 +401,7 @@ function initTilt() {
     let raf = null;
 
     const onMove = (e) => {
-      const rect = card.getBoundingClientRect();
+      const rect = inner.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width;
       const y = (e.clientY - rect.top) / rect.height;
       const rotY = (x - 0.5) * maxTilt * 2;
@@ -414,8 +419,8 @@ function initTilt() {
       inner.style.transform = "rotateX(0deg) rotateY(0deg) translateZ(0)";
     };
 
-    card.addEventListener("mousemove", onMove);
-    card.addEventListener("mouseleave", onLeave);
+    inner.addEventListener("mousemove", onMove);
+    inner.addEventListener("mouseleave", onLeave);
   });
 }
 
@@ -523,6 +528,7 @@ async function initPage() {
   counters();
   imageParallax();
   initTilt();
+  initVideoPlayer();
   if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
 
   try {
