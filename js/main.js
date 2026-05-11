@@ -356,37 +356,42 @@ function sectionReveals() {
 
 }
 
-/* ---------- VIDEO THUMBNAIL → MODAL ---------- */
+/* ---------- INLINE VIDEO PLAY / CLOSE OVERLAY ---------- */
 function initVideoPlayer() {
-  const trigger = document.getElementById("videoPlayer");
-  const modal = document.getElementById("videoModal");
-  const closeBtn = document.getElementById("videoModalClose");
-  const video = document.getElementById("videoModalEl");
-  if (!trigger || !modal || !closeBtn || !video) return;
+  const section = document.getElementById("video");
+  const player = document.getElementById("videoPlayer");
+  const video = document.getElementById("videoEl");
+  const playBtn = document.getElementById("videoPlayBtn");
+  const closeBtn = document.getElementById("videoCloseBtn");
+  if (!section || !player || !video || !playBtn || !closeBtn) return;
 
-  const open = () => {
-    modal.classList.add("is-open");
-    modal.setAttribute("aria-hidden", "false");
-    lockScroll();
-    video.currentTime = 0;
+  const start = () => {
+    player.classList.add("is-playing");
     video.play().catch(() => {});
   };
-  const close = () => {
-    modal.classList.remove("is-open");
-    modal.setAttribute("aria-hidden", "true");
+  const stop = () => {
     video.pause();
-    unlockScroll();
+    video.currentTime = 0;
+    player.classList.remove("is-playing");
   };
 
-  trigger.addEventListener("click", open);
-  trigger.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
+  playBtn.addEventListener("click", start);
+  closeBtn.addEventListener("click", stop);
+
+  // click outside the player (within the section) → close
+  section.addEventListener("click", (e) => {
+    if (!player.classList.contains("is-playing")) return;
+    if (player.contains(e.target)) return;
+    stop();
   });
-  closeBtn.addEventListener("click", close);
-  modal.addEventListener("click", (e) => { if (e.target === modal) close(); });
+
+  // Escape key → close
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal.classList.contains("is-open")) close();
+    if (e.key === "Escape" && player.classList.contains("is-playing")) stop();
   });
+
+  video.addEventListener("play",  () => player.classList.add("is-playing"));
+  video.addEventListener("ended", () => player.classList.remove("is-playing"));
 }
 
 /* ---------- 3D TILT (vignette) ---------- */
@@ -422,6 +427,230 @@ function initTilt() {
     inner.addEventListener("mousemove", onMove);
     inner.addEventListener("mouseleave", onLeave);
   });
+}
+
+/* ---------- STORY INTRO REVEAL — "En conversation avec…" ---------- */
+function initStoryIntroReveal() {
+  if (typeof ScrollTrigger === "undefined") return;
+  const intro = document.querySelector(".story-intro");
+  if (!intro) return;
+
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    intro.classList.add("is-revealed");
+    return;
+  }
+
+  ScrollTrigger.create({
+    trigger: intro,
+    start: "top 78%",
+    once: true,
+    onEnter: () => intro.classList.add("is-revealed"),
+  });
+}
+
+/* ---------- STORY SCROLL — sticky + rotation + scroll-jack (1 scroll = 1 section) ---------- */
+function initStoryScroll() {
+  if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
+  const sections = gsap.utils.toArray("[data-story]");
+  const container = document.querySelector(".story-scroll");
+  if (!sections.length || !container) return;
+
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const ROT_START = 14;
+
+  sections.forEach((section, i) => {
+    gsap.set(section, { zIndex: i + 1 });
+    const inner = section.querySelector(".story-inner");
+    if (!inner) return;
+
+    if (i > 0 && !reduced) {
+      gsap.set(inner, { rotation: ROT_START, transformOrigin: "bottom left" });
+      gsap.to(inner, {
+        rotation: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top bottom",
+          end: "top top",
+          scrub: 1,
+        },
+      });
+    }
+  });
+
+  ScrollTrigger.refresh();
+
+  if (reduced) return;
+
+  /* ---- scroll-jacking ---- */
+  let currentIndex = 0;
+  let isAnimating = false;
+  let inContainer = false;
+  let lastInputTime = 0;
+  const COOLDOWN_MS = 900;
+
+  ScrollTrigger.create({
+    trigger: container,
+    start: "top top",
+    end: "bottom bottom",
+    onEnter:     () => { inContainer = true; updateCurrentIndex(); },
+    onEnterBack: () => { inContainer = true; updateCurrentIndex(); },
+    onLeave:     () => { inContainer = false; },
+    onLeaveBack: () => { inContainer = false; },
+  });
+
+  function updateCurrentIndex() {
+    let best = 0, bestDist = Infinity;
+    sections.forEach((sec, i) => {
+      const d = Math.abs(sec.getBoundingClientRect().top);
+      if (d < bestDist) { bestDist = d; best = i; }
+    });
+    currentIndex = best;
+  }
+
+  function scrollToIndex(idx) {
+    if (idx < 0 || idx >= sections.length || isAnimating) return;
+    isAnimating = true;
+    currentIndex = idx;
+    const targetY = window.scrollY + sections[idx].getBoundingClientRect().top;
+    const done = () => { isAnimating = false; };
+
+    if (typeof lenis !== "undefined" && lenis && typeof lenis.scrollTo === "function") {
+      lenis.scrollTo(targetY, {
+        duration: 0.85,
+        easing: (t) => 1 - Math.pow(1 - t, 3),
+        onComplete: done,
+      });
+    } else {
+      window.scrollTo({ top: targetY, behavior: "smooth" });
+      setTimeout(done, 850);
+    }
+  }
+
+  function onWheel(e) {
+    if (!inContainer) return;
+    const now = performance.now();
+
+    // pendant l'anim ou cooldown → bloque tout scroll
+    if (isAnimating || now - lastInputTime < COOLDOWN_MS) {
+      e.preventDefault();
+      return;
+    }
+
+    if (Math.abs(e.deltaY) < 4) return;
+    const dir = e.deltaY > 0 ? 1 : -1;
+    const nextIdx = currentIndex + dir;
+
+    // si on est aux limites, laisser le scroll normal sortir du conteneur
+    if (nextIdx < 0 || nextIdx >= sections.length) return;
+
+    e.preventDefault();
+    lastInputTime = now;
+    scrollToIndex(nextIdx);
+  }
+
+  /* touch (mobile) — swipe vertical = 1 section */
+  let touchStartY = null;
+  function onTouchStart(e) {
+    if (!inContainer || isAnimating) return;
+    touchStartY = e.touches[0].clientY;
+  }
+  function onTouchEnd(e) {
+    if (!inContainer || touchStartY === null) return;
+    const now = performance.now();
+    if (isAnimating || now - lastInputTime < COOLDOWN_MS) {
+      touchStartY = null;
+      return;
+    }
+    const dy = touchStartY - (e.changedTouches[0].clientY);
+    touchStartY = null;
+    if (Math.abs(dy) < 30) return;
+    const dir = dy > 0 ? 1 : -1;
+    const nextIdx = currentIndex + dir;
+    if (nextIdx < 0 || nextIdx >= sections.length) return;
+    lastInputTime = now;
+    scrollToIndex(nextIdx);
+  }
+
+  /* clavier — flèches / espace / pageDown */
+  function onKey(e) {
+    if (!inContainer || isAnimating) return;
+    const now = performance.now();
+    if (now - lastInputTime < COOLDOWN_MS) return;
+    let dir = 0;
+    if (["ArrowDown", "PageDown", " ", "Spacebar"].includes(e.key)) dir = 1;
+    else if (["ArrowUp", "PageUp"].includes(e.key)) dir = -1;
+    if (!dir) return;
+    const nextIdx = currentIndex + dir;
+    if (nextIdx < 0 || nextIdx >= sections.length) return;
+    e.preventDefault();
+    lastInputTime = now;
+    scrollToIndex(nextIdx);
+  }
+
+  window.addEventListener("wheel", onWheel, { passive: false });
+  window.addEventListener("touchstart", onTouchStart, { passive: true });
+  window.addEventListener("touchend", onTouchEnd, { passive: true });
+  window.addEventListener("keydown", onKey);
+}
+
+/* ---------- TEXT SCRAMBLE (hero subtitle "Qui sommes nous ?") ---------- */
+function scrambleHeroSubtitle() {
+  const brand = document.querySelector(".hero__brand");
+  const targets = document.querySelectorAll(".hero__brand-subtitle-text");
+  if (!brand || !targets.length) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?@#$%&*";
+  const duration = 0.9;
+  const speed = 0.04;
+
+  const scrambleEl = (el) => {
+    const text = el.textContent;
+    const totalSteps = Math.ceil(duration / speed);
+    let step = 0;
+
+    const interval = setInterval(() => {
+      const progress = step / totalSteps;
+      let out = "";
+      for (let i = 0; i < text.length; i++) {
+        const ch = text[i];
+        if (ch === " ") { out += " "; continue; }
+        out += progress * text.length > i
+          ? ch
+          : charset[Math.floor(Math.random() * charset.length)];
+      }
+      el.textContent = out;
+      step++;
+      if (step > totalSteps) {
+        clearInterval(interval);
+        el.textContent = text;
+      }
+    }, speed * 1000);
+  };
+
+  let triggered = false;
+  const run = () => {
+    if (triggered) return;
+    triggered = true;
+    // attend un poil que la révélation CSS (width 0 → auto) finisse
+    setTimeout(() => targets.forEach(scrambleEl), 350);
+  };
+
+  // si la classe est déjà là, déclenche direct
+  if (brand.classList.contains("is-revealed")) {
+    run();
+    return;
+  }
+
+  // sinon observe l'ajout de la classe
+  const observer = new MutationObserver(() => {
+    if (brand.classList.contains("is-revealed")) {
+      observer.disconnect();
+      run();
+    }
+  });
+  observer.observe(brand, { attributes: true, attributeFilter: ["class"] });
 }
 
 /* ---------- METRIC COUNTERS ---------- */
@@ -525,10 +754,13 @@ function arrivalNudge(delay = 0) {
 async function initPage() {
   stickyNav();
   sectionReveals();
+  scrambleHeroSubtitle();
   counters();
   imageParallax();
   initTilt();
   initVideoPlayer();
+  initStoryIntroReveal();
+  initStoryScroll();
   if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
 
   try {

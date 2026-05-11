@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@300;400;500;600;700&family=Pinyon+Script&family=Audiowide&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Stack+Sans+Notch:wght@200..700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=2" />
+  <link rel="stylesheet" href="css/style.css?v=34" />
 </head>
 
 <body>
@@ -244,27 +244,152 @@
 
     <!-- ============ VIDEO ============ -->
     <section class="video-section" id="video">
-      <div class="video-player" id="videoPlayer" tabindex="0" role="button" aria-label="Lire la vidéo : Découvrir Arundo Re">
-        <img src="assets/img/main.png" alt="Aperçu vidéo Arundo Re" class="video-player__thumb" />
-        <span class="video-player__overlay" aria-hidden="true"></span>
-        <span class="video-player__play" aria-hidden="true">
+      <div class="video-player" id="videoPlayer">
+        <video class="video-player__video" id="videoEl" src="assets/video/CCRRE_Motion_VFinal_FRSubtitles.mp4#t=0.1" playsinline preload="metadata" controls></video>
+        <button type="button" class="video-player__play" id="videoPlayBtn" aria-label="Lire la vidéo">
           <svg viewBox="0 0 24 24" width="32" height="32"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>
-        </span>
-        <div class="video-player__caption">
-          <h3 class="video-player__title">Découvrir Arundo Re</h3>
-          <p class="video-player__desc">Notre vision en motion design</p>
-        </div>
+        </button>
+        <button type="button" class="video-player__close" id="videoCloseBtn" aria-label="Fermer la vidéo">
+          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>
+        </button>
       </div>
     </section>
 
-    <!-- ============ VIDEO MODAL ============ -->
-    <div class="video-modal" id="videoModal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Lecteur vidéo">
-      <button type="button" class="video-modal__close" id="videoModalClose" aria-label="Fermer la vidéo">
-        <svg viewBox="0 0 24 24" width="22" height="22"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      </button>
-      <div class="video-modal__inner">
-        <video class="video-modal__video" id="videoModalEl" src="assets/video/CCRRE_Motion_VFinal_FRSubtitles.mp4" playsinline controls preload="metadata"></video>
-      </div>
+    <!-- ============ STORY INTRO — titre avant les portraits ============ -->
+    <section class="story-intro" id="direction">
+      <h2 class="story-intro__title">
+        <span class="story-intro__line"><span class="story-intro__reveal">En conversation</span></span>
+        <span class="story-intro__line"><span class="story-intro__reveal">avec<span class="story-intro__dots">…</span></span></span>
+      </h2>
+    </section>
+
+    <!-- ============ STORY SCROLL — direction ============ -->
+    <div class="story-scroll" aria-label="Notre direction">
+      <section class="story-section" data-story style="--story-bg:#0a3e3a; --story-fg:#f3f1ec; --story-line:rgba(231,179,74,.45);">
+        <div class="story-inner story-inner--person">
+          <div class="story-person">
+            <div class="story-person__photo">
+              <img src="assets/img/Herv%C3%A9%20Nessi.jpg" alt="Hervé Nessi" />
+            </div>
+            <div class="story-person__body">
+              <p class="story-person__role">Directeur Général de la Souscription<br/><span>Vie &amp; Santé, Dommages &amp; Responsabilité, Spécialités · Monde</span></p>
+              <h2 class="story-person__name">Hervé Nessi</h2>
+              <p class="story-person__desc">Hervé pilote la stratégie de souscription du groupe sur l'ensemble des branches, à l'échelle mondiale.</p>
+              <a href="#" class="story-person__cta" aria-label="Découvrir Hervé Nessi">
+                <span class="story-person__cta-label">Hervé Nessi</span>
+                <span class="story-person__cta-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="story-section" data-story style="--story-bg:#073330; --story-fg:#f3f1ec; --story-line:rgba(231,179,74,.45);">
+        <div class="story-inner story-inner--person">
+          <div class="story-person">
+            <div class="story-person__photo">
+              <img src="assets/img/Vaibhavi%20Metha.jpg" alt="Vaibhavi Mehta" />
+            </div>
+            <div class="story-person__body">
+              <p class="story-person__role">Directrice de la Souscription<br/><span>Vie &amp; Santé · Monde</span></p>
+              <h2 class="story-person__name">Vaibhavi Mehta</h2>
+              <p class="story-person__desc">Vaibhavi dirige la souscription Vie &amp; Santé, en France et à l'international.</p>
+              <a href="#" class="story-person__cta" aria-label="Découvrir Vaibhavi Mehta">
+                <span class="story-person__cta-label">Vaibhavi Mehta</span>
+                <span class="story-person__cta-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="story-section" data-story style="--story-bg:#123f3b; --story-fg:#f3f1ec; --story-line:rgba(231,179,74,.45);">
+        <div class="story-inner story-inner--person">
+          <div class="story-person">
+            <div class="story-person__photo">
+              <img src="assets/img/Elizabeth%20Adams.jpg" alt="Elizabeth Adams" />
+            </div>
+            <div class="story-person__body">
+              <p class="story-person__role">Directrice de la Souscription<br/><span>Dommages &amp; Responsabilité · France, Belgique &amp; Luxembourg</span></p>
+              <h2 class="story-person__name">Elizabeth Adams</h2>
+              <p class="story-person__desc">Elizabeth supervise la souscription dommages aux biens et responsabilité civile pour la zone France &amp; Benelux.</p>
+              <a href="#" class="story-person__cta" aria-label="Découvrir Elizabeth Adams">
+                <span class="story-person__cta-label">Elizabeth Adams</span>
+                <span class="story-person__cta-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="story-section" data-story style="--story-bg:#0a3e3a; --story-fg:#f3f1ec; --story-line:rgba(231,179,74,.45);">
+        <div class="story-inner story-inner--person">
+          <div class="story-person">
+            <div class="story-person__photo">
+              <img src="assets/img/Fran%C3%A7ois%20Cahu%20(1).jpg" alt="François Cahu" />
+            </div>
+            <div class="story-person__body">
+              <p class="story-person__role">Directeur de la Souscription<br/><span>Dommages &amp; Responsabilité · Europe centrale et du nord</span></p>
+              <h2 class="story-person__name">François Cahu</h2>
+              <p class="story-person__desc">François pilote la souscription P&amp;C en Europe centrale et du nord, en lien étroit avec nos cédantes régionales.</p>
+              <a href="#" class="story-person__cta" aria-label="Découvrir François Cahu">
+                <span class="story-person__cta-label">François Cahu</span>
+                <span class="story-person__cta-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="story-section" data-story style="--story-bg:#073330; --story-fg:#f3f1ec; --story-line:rgba(231,179,74,.45);">
+        <div class="story-inner story-inner--person">
+          <div class="story-person">
+            <div class="story-person__photo">
+              <img src="assets/img/Emmanuel%20Jacquemin.jpg" alt="Emmanuel Jacquemin" />
+            </div>
+            <div class="story-person__body">
+              <p class="story-person__role">Directeur de la Souscription<br/><span>Dommages &amp; Responsabilité · Europe du sud, Pays-Bas &amp; Amérique latine</span></p>
+              <h2 class="story-person__name">Emmanuel Jacquemin</h2>
+              <p class="story-person__desc">Emmanuel couvre l'Europe du sud, les Pays-Bas et l'Amérique latine sur le marché P&amp;C.</p>
+              <a href="#" class="story-person__cta" aria-label="Découvrir Emmanuel Jacquemin">
+                <span class="story-person__cta-label">Emmanuel Jacquemin</span>
+                <span class="story-person__cta-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="story-section" data-story style="--story-bg:#123f3b; --story-fg:#f3f1ec; --story-line:rgba(231,179,74,.45);">
+        <div class="story-inner story-inner--person">
+          <div class="story-person">
+            <div class="story-person__photo">
+              <img src="assets/img/John%20Conan%20CA%20(1).jpg" alt="John Conan" />
+            </div>
+            <div class="story-person__body">
+              <p class="story-person__role">Directeur de la Souscription · Dommages &amp; Responsabilité<br/><span>Asie &amp; Afrique · Directeur Général de la succursale de Labuan</span></p>
+              <h2 class="story-person__name">John Conan</h2>
+              <p class="story-person__desc">John dirige la souscription P&amp;C en Asie et en Afrique, et représente Arundo Re sur la place de Labuan.</p>
+              <a href="#" class="story-person__cta" aria-label="Découvrir John Conan">
+                <span class="story-person__cta-label">John Conan</span>
+                <span class="story-person__cta-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
 
     <!-- ============ MARQUEE ============ -->
@@ -530,6 +655,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/@barba/core@2.10.3/dist/barba.umd.js"></script>
 
-  <script src="js/main.js?v=2"></script>
+  <script src="js/main.js?v=13"></script>
 </body>
 </html>
