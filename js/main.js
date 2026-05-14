@@ -17,25 +17,42 @@ document.documentElement.classList.add("js");
   function bind() {
     const menu = document.getElementById("sideMenu");
     const toggle = document.getElementById("menuToggle");
+    const navToggle = document.getElementById("menuNavToggle");
     if (!menu || !toggle) {
       console.warn("[arundore] menu elements not found", { menu: !!menu, toggle: !!toggle });
       return;
     }
     if (toggle.dataset.bound === "1") return;
     toggle.dataset.bound = "1";
+    if (navToggle) navToggle.dataset.bound = "1";
 
-    const open = () => {
+    const open = (mode) => {
+      menu.classList.remove("is-nav-only", "is-blog-only");
+      if (mode === "nav") menu.classList.add("is-nav-only");
+      else if (mode === "blog") menu.classList.add("is-blog-only");
+
       menu.classList.add("is-open");
-      toggle.classList.add("is-active");
-      toggle.setAttribute("aria-expanded", "true");
       menu.setAttribute("aria-hidden", "false");
+
+      if (mode === "nav" && navToggle) {
+        navToggle.classList.add("is-active");
+        navToggle.setAttribute("aria-expanded", "true");
+      } else {
+        toggle.classList.add("is-active");
+        toggle.setAttribute("aria-expanded", "true");
+      }
+
       try { if (typeof lenis !== "undefined" && lenis) lenis.stop(); } catch (e) {}
       document.documentElement.style.overflow = "hidden";
     };
     const close = () => {
-      menu.classList.remove("is-open");
+      menu.classList.remove("is-open", "is-nav-only", "is-blog-only");
       toggle.classList.remove("is-active");
       toggle.setAttribute("aria-expanded", "false");
+      if (navToggle) {
+        navToggle.classList.remove("is-active");
+        navToggle.setAttribute("aria-expanded", "false");
+      }
       menu.setAttribute("aria-hidden", "true");
       try { if (typeof lenis !== "undefined" && lenis) lenis.start(); } catch (e) {}
       document.documentElement.style.overflow = "";
@@ -44,12 +61,19 @@ document.documentElement.classList.add("js");
     toggle.addEventListener("click", (e) => {
       e.preventDefault();
       e.stopPropagation();
-      menu.classList.contains("is-open") ? close() : open();
+      menu.classList.contains("is-open") ? close() : open("blog");
     });
+    if (navToggle) {
+      navToggle.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        menu.classList.contains("is-open") ? close() : open("nav");
+      });
+    }
     menu.querySelectorAll("[data-menu-close]").forEach((el) => {
       el.addEventListener("click", close);
     });
-    menu.querySelectorAll(".side-menu__link").forEach((link) => {
+    menu.querySelectorAll(".side-menu__link, .side-menu__primary-link").forEach((link) => {
       link.addEventListener("click", () => setTimeout(close, 120));
     });
     document.addEventListener("keydown", (e) => {
@@ -544,6 +568,10 @@ function initStoryScroll() {
   ScrollTrigger.refresh();
 
   if (reduced) return;
+
+  // disable scroll-jacking on touch/small screens — native scroll feels better
+  const isTouch = window.matchMedia("(hover: none)").matches || window.innerWidth <= 900;
+  if (isTouch) return;
 
   /* ---- scroll-jacking ---- */
   let currentIndex = 0;

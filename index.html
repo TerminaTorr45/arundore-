@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@300;400;500;600;700&family=Pinyon+Script&family=Audiowide&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Stack+Sans+Notch:wght@200..700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=41" />
+  <link rel="stylesheet" href="css/style.css?v=47" />
 </head>
 
 <body>
@@ -47,6 +47,13 @@
     </nav>
 
     <div class="nav__meta">
+      <button type="button" class="menu-toggle menu-toggle--nav" id="menuNavToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span class="menu-toggle__label">Menu</span>
+        <span class="menu-toggle__bars" aria-hidden="true">
+          <span class="menu-toggle__bar"></span>
+          <span class="menu-toggle__bar"></span>
+        </span>
+      </button>
       <button type="button" class="menu-toggle" id="menuToggle" aria-label="Ouvrir le blog" aria-expanded="false">
         <span class="menu-toggle__label">Blog</span>
         <span class="menu-toggle__bars" aria-hidden="true">
@@ -70,6 +77,18 @@
           </svg>
         </button>
       </header>
+
+      <nav class="side-menu__primary" aria-label="Navigation principale mobile">
+        <ul class="side-menu__primary-list">
+          <li><a href="#accueil" class="side-menu__primary-link">Accueil</a></li>
+          <li><a href="#decouvrir" class="side-menu__primary-link">Nous découvrir</a></li>
+          <li><a href="#finances" class="side-menu__primary-link">Informations financières</a></li>
+          <li><a href="#solutions" class="side-menu__primary-link">Solutions</a></li>
+          <li><a href="#engagements" class="side-menu__primary-link">Nos engagements</a></li>
+          <li><a href="#carrieres" class="side-menu__primary-link">Carrières</a></li>
+          <li><a href="#presse" class="side-menu__primary-link">Presse</a></li>
+        </ul>
+      </nav>
 
       <nav class="side-menu__nav" aria-label="Navigation site">
         <ul class="side-menu__list">
