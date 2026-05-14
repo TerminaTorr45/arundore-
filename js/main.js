@@ -400,42 +400,47 @@ function sectionReveals() {
 
 }
 
-/* ---------- INLINE VIDEO PLAY / CLOSE OVERLAY ---------- */
+/* ---------- INLINE VIDEO PLAY / CLOSE OVERLAY (YouTube iframe) ---------- */
 function initVideoPlayer() {
   const section = document.getElementById("video");
   const player = document.getElementById("videoPlayer");
-  const video = document.getElementById("videoEl");
+  const embed = document.getElementById("videoEmbed");
   const playBtn = document.getElementById("videoPlayBtn");
   const closeBtn = document.getElementById("videoCloseBtn");
-  if (!section || !player || !video || !playBtn || !closeBtn) return;
+  if (!section || !player || !embed || !playBtn || !closeBtn) return;
+
+  const ytId = player.dataset.ytId;
+  const ytStart = player.dataset.ytStart || "0";
 
   const start = () => {
+    if (!embed.querySelector("iframe")) {
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://www.youtube.com/embed/${ytId}?autoplay=1&start=${ytStart}&rel=0&modestbranding=1&playsinline=1`;
+      iframe.title = "Vidéo Arundo Re";
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.allowFullscreen = true;
+      iframe.frameBorder = "0";
+      embed.appendChild(iframe);
+    }
     player.classList.add("is-playing");
-    video.play().catch(() => {});
   };
   const stop = () => {
-    video.pause();
-    video.currentTime = 0;
+    embed.innerHTML = "";
     player.classList.remove("is-playing");
   };
 
   playBtn.addEventListener("click", start);
   closeBtn.addEventListener("click", stop);
 
-  // click outside the player (within the section) → close
   section.addEventListener("click", (e) => {
     if (!player.classList.contains("is-playing")) return;
     if (player.contains(e.target)) return;
     stop();
   });
 
-  // Escape key → close
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && player.classList.contains("is-playing")) stop();
   });
-
-  video.addEventListener("play",  () => player.classList.add("is-playing"));
-  video.addEventListener("ended", () => player.classList.remove("is-playing"));
 }
 
 /* ---------- 3D TILT (vignette) ---------- */

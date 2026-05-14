@@ -1148,6 +1148,32 @@ html.js .nav-sticky {
   display: block;
   object-fit: cover;
 }
+.video-player__embed {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+.video-player__embed iframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0;
+}
+.video-player__poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity .35s var(--ease), visibility 0s linear .35s;
+}
+.video-player.is-playing .video-player__poster {
+  opacity: 0;
+  visibility: hidden;
+}
 .video-player__play {
   position: absolute;
   inset: 0;
