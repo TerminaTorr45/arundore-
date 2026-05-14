@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@300;400;500;600;700&family=Pinyon+Script&family=Audiowide&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Stack+Sans+Notch:wght@200..700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=34" />
+  <link rel="stylesheet" href="css/style.css?v=41" />
 </head>
 
 <body>
@@ -47,7 +47,6 @@
     </nav>
 
     <div class="nav__meta">
-      <a href="#contact" class="nav__cta">Contact</a>
       <button type="button" class="menu-toggle" id="menuToggle" aria-label="Ouvrir le blog" aria-expanded="false">
         <span class="menu-toggle__label">Blog</span>
         <span class="menu-toggle__bars" aria-hidden="true">
@@ -286,7 +285,7 @@
         </div>
       </section>
 
-      <section class="story-section" data-story style="--story-bg:#073330; --story-fg:#f3f1ec; --story-line:rgba(231,179,74,.45);">
+      <section class="story-section" data-story style="--story-bg:#0a3e3a; --story-fg:#f3f1ec; --story-line:rgba(231,179,74,.45);">
         <div class="story-inner story-inner--person">
           <div class="story-person">
             <div class="story-person__photo">
@@ -307,7 +306,7 @@
         </div>
       </section>
 
-      <section class="story-section" data-story style="--story-bg:#123f3b; --story-fg:#f3f1ec; --story-line:rgba(231,179,74,.45);">
+      <section class="story-section" data-story style="--story-bg:#0a3e3a; --story-fg:#f3f1ec; --story-line:rgba(231,179,74,.45);">
         <div class="story-inner story-inner--person">
           <div class="story-person">
             <div class="story-person__photo">
@@ -349,7 +348,7 @@
         </div>
       </section>
 
-      <section class="story-section" data-story style="--story-bg:#073330; --story-fg:#f3f1ec; --story-line:rgba(231,179,74,.45);">
+      <section class="story-section" data-story style="--story-bg:#0a3e3a; --story-fg:#f3f1ec; --story-line:rgba(231,179,74,.45);">
         <div class="story-inner story-inner--person">
           <div class="story-person">
             <div class="story-person__photo">
@@ -370,7 +369,7 @@
         </div>
       </section>
 
-      <section class="story-section" data-story style="--story-bg:#123f3b; --story-fg:#f3f1ec; --story-line:rgba(231,179,74,.45);">
+      <section class="story-section" data-story style="--story-bg:#0a3e3a; --story-fg:#f3f1ec; --story-line:rgba(231,179,74,.45);">
         <div class="story-inner story-inner--person">
           <div class="story-person">
             <div class="story-person__photo">
@@ -412,238 +411,151 @@
       </div>
     </section>
 
-    <!-- ============ INTRO / VALUE PROP ============ -->
-    <section class="intro" id="entreprise">
-      <div class="intro__grid">
-        <div class="intro__label">
-          <span>(01)</span>
-          <span>L'entreprise</span>
-        </div>
-        <h2 class="intro__title">
-          Un réassureur de <em>taille humaine</em>, à portée mondiale.
-        </h2>
-        <div class="intro__body">
-          <p>
-            Arundo Re est un réassureur indépendant, opérant dans plus de 100 pays.
-            Notre mission : transformer la complexité du risque en certitude pour
-            nos cédantes, partout où elles opèrent.
-          </p>
-          <p>
-            Nous combinons l'agilité d'une structure resserrée avec la profondeur
-            technique d'un acteur global — sur les lignes traditionnelles
-            comme sur les spécialités les plus pointues.
-          </p>
-          <a href="#solutions" class="link-arrow" data-cursor="hover">
-            <span>En savoir plus</span>
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 13L13 1M13 1H4M13 1V10" stroke="currentColor" stroke-width="1.5"/></svg>
-          </a>
-        </div>
-      </div>
-    </section>
-
     <!-- ============ KEY METRICS ============ -->
-    <section class="metrics" id="chiffres">
+    <section class="metrics metrics--dark" id="chiffres">
       <div class="metrics__head">
-        <div class="metrics__label">
-          <span>(02)</span>
-          <span>Chiffres clés 2025</span>
+        <h2 class="metrics__title">Chiffres clés <em>2025.</em></h2>
+      </div>
+
+      <div class="metrics__rows">
+        <div class="metric-row">
+          <div class="metric-row__cat">RH</div>
+          <div class="metric-row__cards">
+            <article class="kpi">
+              <img class="kpi__icon" src="assets/LOGO/duo%20sans%20pixel.png" alt="" loading="lazy"/>
+              <div class="kpi__num">218</div>
+              <div class="kpi__label">Collaborateurs</div>
+            </article>
+            <article class="kpi">
+              <img class="kpi__icon" src="assets/LOGO/globe%20sans%20pixel.png" alt="" loading="lazy"/>
+              <div class="kpi__num">23</div>
+              <div class="kpi__label">Nationalités</div>
+            </article>
+            <article class="kpi">
+              <img class="kpi__icon" src="assets/LOGO/index%20egalit%C3%A9%20sans%20pixel.png" alt="" loading="lazy"/>
+              <div class="kpi__num">96%</div>
+              <div class="kpi__label">Index F/H</div>
+            </article>
+          </div>
         </div>
-        <h2 class="metrics__title">
-          La preuve <em>par les chiffres.</em>
-        </h2>
-      </div>
 
-      <div class="metrics__grid">
-        <article class="metric">
-          <div class="metric__num" data-count="218">0</div>
-          <div class="metric__plus"></div>
-          <p class="metric__label">Collaborateurs<br/>23 nationalités</p>
-        </article>
-
-        <article class="metric">
-          <div class="metric__num">€<span data-count="1427">0</span><span class="metric__unit">M</span></div>
-          <p class="metric__label">Primes brutes<br/>émises</p>
-        </article>
-
-        <article class="metric">
-          <div class="metric__num" data-count="103">0</div>
-          <div class="metric__plus">+</div>
-          <p class="metric__label">Pays<br/>couverts</p>
-        </article>
-
-        <article class="metric">
-          <div class="metric__num">A</div>
-          <p class="metric__label">Notation<br/>S&amp;P · AM Best</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- ============ SOLUTIONS ============ -->
-    <section class="solutions" id="solutions">
-      <div class="solutions__head">
-        <div class="solutions__label">
-          <span>(03)</span>
-          <span>Solutions</span>
+        <div class="metric-row">
+          <div class="metric-row__cat">Solidité Financière</div>
+          <div class="metric-row__cards">
+            <article class="kpi kpi--text">
+              <div class="kpi__sup">Standard &amp; Poor's</div>
+              <div class="kpi__num">A</div>
+              <div class="kpi__label">Perspective stable</div>
+            </article>
+            <article class="kpi kpi--text">
+              <div class="kpi__sup">AM Best</div>
+              <div class="kpi__num">A</div>
+              <div class="kpi__label">Perspective stable</div>
+            </article>
+            <article class="kpi">
+              <img class="kpi__icon" src="assets/LOGO/fusion%20cercle%20sans%20pixel.png" alt="" loading="lazy"/>
+              <div class="kpi__num">225%</div>
+              <div class="kpi__label">Ratio de solvabilité S2</div>
+            </article>
+          </div>
         </div>
-        <h2 class="solutions__title">
-          Une expertise <em>multi-lignes,</em><br/> une seule promesse.
-        </h2>
-      </div>
 
-      <div class="solutions__list">
-        <a href="#" class="sol" data-cursor="hover">
-          <span class="sol__num">01</span>
-          <span class="sol__name">Vie &amp; Santé</span>
-          <span class="sol__tag">Long-terme</span>
-          <span class="sol__arrow">→</span>
-        </a>
-        <a href="#" class="sol" data-cursor="hover">
-          <span class="sol__num">02</span>
-          <span class="sol__name">Non-Vie Traditionnelle</span>
-          <span class="sol__tag">P&amp;C</span>
-          <span class="sol__arrow">→</span>
-        </a>
-        <a href="#" class="sol" data-cursor="hover">
-          <span class="sol__num">03</span>
-          <span class="sol__name">Spécialités</span>
-          <span class="sol__tag">Aviation · Marine · Crédit</span>
-          <span class="sol__arrow">→</span>
-        </a>
-        <a href="#" class="sol" data-cursor="hover">
-          <span class="sol__num">04</span>
-          <span class="sol__name">Catastrophes Naturelles</span>
-          <span class="sol__tag">Cat-Nat</span>
-          <span class="sol__arrow">→</span>
-        </a>
-        <a href="#" class="sol" data-cursor="hover">
-          <span class="sol__num">05</span>
-          <span class="sol__name">Cyber &amp; Risques émergents</span>
-          <span class="sol__tag">Nouveaux risques</span>
-          <span class="sol__arrow">→</span>
-        </a>
-      </div>
-    </section>
-
-    <!-- ============ LEADERSHIP ============ -->
-    <section class="leadership" id="leadership">
-      <div class="leadership__head">
-        <div class="leadership__label">
-          <span>(04)</span>
-          <span>Leadership</span>
+        <div class="metric-row">
+          <div class="metric-row__cat">Activité</div>
+          <div class="metric-row__cards">
+            <article class="kpi">
+              <img class="kpi__icon" src="assets/LOGO/graphique%20sans%20pixel.png" alt="" loading="lazy"/>
+              <div class="kpi__num">1 427 M€</div>
+              <div class="kpi__label">Primes brutes émises</div>
+            </article>
+            <article class="kpi">
+              <img class="kpi__icon" src="assets/LOGO/duo%20sans%20pixel%20(1).png" alt="" loading="lazy"/>
+              <div class="kpi__num">+900</div>
+              <div class="kpi__label">Clients</div>
+            </article>
+            <article class="kpi">
+              <img class="kpi__icon" src="assets/LOGO/globe%20sans%20pixel%20(1).png" alt="" loading="lazy"/>
+              <div class="kpi__num">+105</div>
+              <div class="kpi__label">Pays souscrits</div>
+            </article>
+          </div>
         </div>
-        <h2 class="leadership__title">
-          Le Comité Exécutif, <em>2026.</em>
-        </h2>
-      </div>
 
-      <figure class="leadership__media">
-        <img
-          src="assets/img/comex-2026.jpg"
-          alt="Comité exécutif Arundo Re — 2026"
-          loading="lazy"
-        />
-        <figcaption>Comité Exécutif Arundo Re — Paris, 2026</figcaption>
-      </figure>
-
-      <div class="leadership__body">
-        <p>
-          Une équipe de souscripteurs et de dirigeants expérimentés, organisée
-          autour des grandes régions du monde — pour une décision rapide, locale,
-          et un engagement durable auprès de nos cédantes.
-        </p>
-        <a href="#" class="link-arrow" data-cursor="hover">
-          <span>Voir tous les profils</span>
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 13L13 1M13 1H4M13 1V10" stroke="currentColor" stroke-width="1.5"/></svg>
-        </a>
-      </div>
-    </section>
-
-    <!-- ============ COMMITMENTS ============ -->
-    <section class="commit" id="engagements">
-      <div class="commit__head">
-        <div class="commit__label">
-          <span>(05)</span>
-          <span>Engagements</span>
+        <div class="metric-row">
+          <div class="metric-row__cat">Résultats</div>
+          <div class="metric-row__cards">
+            <article class="kpi">
+              <img class="kpi__icon" src="assets/LOGO/cible%20sans%20pixel.png" alt="" loading="lazy"/>
+              <div class="kpi__num">100,9 M€</div>
+              <div class="kpi__label">Résultat net</div>
+            </article>
+            <article class="kpi">
+              <img class="kpi__icon" src="assets/LOGO/fusion%20cercle%20sans%20pixel%20(1).png" alt="" loading="lazy"/>
+              <div class="kpi__num">88,8%</div>
+              <div class="kpi__label">Ratio combiné net</div>
+            </article>
+            <article class="kpi">
+              <img class="kpi__icon" src="assets/LOGO/graphique%20sans%20pixel.png" alt="" loading="lazy"/>
+              <div class="kpi__num">2,7%</div>
+              <div class="kpi__label">TRI<span class="kpi__sub">(Rendement du portefeuille d'actifs) French GAAP</span></div>
+            </article>
+          </div>
         </div>
-        <h2 class="commit__title">
-          Réassurer aujourd'hui, <em>protéger demain.</em>
-        </h2>
-      </div>
-
-      <div class="commit__grid">
-        <article class="commit__card">
-          <h3>Climat</h3>
-          <p>
-            Trajectoire alignée sur les Accords de Paris.
-            Intégration ESG dans la souscription des risques industriels.
-          </p>
-        </article>
-        <article class="commit__card">
-          <h3>Diversité</h3>
-          <p>
-            23 nationalités. Parité au Comité Exécutif.
-            Un index égalité professionnelle de premier rang.
-          </p>
-        </article>
-        <article class="commit__card">
-          <h3>Gouvernance</h3>
-          <p>
-            Capital indépendant. Décisions prises au plus près
-            des cédantes, sans hiérarchie superflue.
-          </p>
-        </article>
       </div>
     </section>
 
-    <!-- ============ CTA / FOOTER ============ -->
-    <section class="cta" id="contact">
-      <div class="cta__inner">
-        <p class="cta__small">Always around.</p>
-        <h2 class="cta__title">
-          Parlons de <em>votre prochain&nbsp;risque.</em>
-        </h2>
-        <a href="mailto:contact@arundo.re" class="cta__btn" data-cursor="hover">
-          <span>contact@arundo.re</span>
-          <svg width="18" height="18" viewBox="0 0 14 14" fill="none"><path d="M1 13L13 1M13 1H4M13 1V10" stroke="currentColor" stroke-width="1.5"/></svg>
-        </a>
-      </div>
-    </section>
-
-    <footer class="footer" id="carrieres">
+    <footer class="footer footer--dark" id="carrieres">
       <div class="footer__top">
-        <div class="footer__col">
-          <h4>Bureau</h4>
-          <p>21 Boulevard Haussmann<br/>75009 Paris — France</p>
+        <div class="footer__brand">
+          <img src="assets/img/logo-arundore.png" alt="Arundo Re Paris" class="footer__logo"/>
         </div>
-        <div class="footer__col">
-          <h4>Contact</h4>
-          <p>+33 (0)1 00 00 00 00<br/>contact@arundo.re</p>
+
+        <nav class="footer__col" aria-label="Liens entreprise">
+          <a href="#" data-cursor="hover">Nos experts</a>
+          <a href="#" data-cursor="hover">Relations Investisseurs</a>
+          <a href="#" data-cursor="hover">Contact</a>
+          <a href="#" data-cursor="hover">Accessibilité : partiellement conforme</a>
+        </nav>
+
+        <nav class="footer__col" aria-label="Liens contenus">
+          <a href="#" data-cursor="hover">Nous découvrir</a>
+          <a href="#" data-cursor="hover">Solutions</a>
+          <a href="#" data-cursor="hover">Presse</a>
+        </nav>
+
+        <div class="footer__newsletter">
+          <p class="footer__newsletter-label">Inscription à notre newsletter :</p>
+          <button type="button" class="footer__newsletter-btn" data-cursor="hover">Je m'inscris</button>
         </div>
-        <div class="footer__col">
-          <h4>Suivre</h4>
-          <p>
-            <a href="#" data-cursor="hover">LinkedIn</a><br/>
-            <a href="#" data-cursor="hover">YouTube</a>
-          </p>
-        </div>
-        <div class="footer__col">
-          <h4>Newsletter</h4>
-          <form class="footer__form" onsubmit="event.preventDefault();">
-            <input type="email" placeholder="email@domaine.com" aria-label="Votre e-mail" required />
-            <button type="submit" aria-label="S'inscrire" data-cursor="hover">→</button>
-          </form>
+
+        <div class="footer__contact">
+          <div class="footer__address">
+            <svg class="footer__pin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22s7-7.5 7-13a7 7 0 1 0-14 0c0 5.5 7 13 7 13z"/>
+              <circle cx="12" cy="9" r="2.5"/>
+            </svg>
+            <p>6 rue Favart,<br/>75002 Paris&nbsp;- FRANCE</p>
+          </div>
+          <div class="footer__social">
+            <a href="#" aria-label="YouTube" data-cursor="hover">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 0 0 .5 6.2C0 8 0 12 0 12s0 4 .5 5.8a3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.8.5-5.8.5-5.8s0-4-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn" data-cursor="hover">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5V9.5h3V19zM6.5 8.2a1.7 1.7 0 1 1 0-3.4 1.7 1.7 0 0 1 0 3.4zM19 19h-3v-5c0-1.2-.5-2-1.6-2-1 0-1.6.7-1.6 2v5h-3V9.5h3v1.2c.5-.8 1.4-1.4 2.7-1.4 2.1 0 3.5 1.4 3.5 4V19z"/></svg>
+            </a>
+          </div>
         </div>
       </div>
 
       <div class="footer__big" aria-hidden="true">ARUNDO&nbsp;RE</div>
 
       <div class="footer__bottom">
-        <span>© 2026 Arundo Re. Tous droits réservés.</span>
         <span class="footer__legal">
           <a href="#" data-cursor="hover">Mentions légales</a>
           <a href="#" data-cursor="hover">Données personnelles</a>
-          <a href="#" data-cursor="hover">Accessibilité</a>
+          <a href="#" data-cursor="hover">Cookies</a>
         </span>
+        <span>© - Arundo Re 2026 All rights reserved</span>
       </div>
     </footer>
 
@@ -655,6 +567,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/@barba/core@2.10.3/dist/barba.umd.js"></script>
 
-  <script src="js/main.js?v=13"></script>
+  <script src="js/main.js?v=17"></script>
 </body>
 </html>

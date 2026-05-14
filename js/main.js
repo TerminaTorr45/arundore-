@@ -84,15 +84,24 @@ let cleanupHeroBrandArm = null;
 try {
   if (typeof Lenis !== "undefined") {
     lenis = new Lenis({
-      duration: 1.2,
+      // duration + easing keep behavior identical on slow vs fast hardware
+      duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       smoothTouch: false,
+      // normalize across input devices (trackpad / mouse / high-refresh)
+      wheelMultiplier: 1,
+      touchMultiplier: 1.5,
+      lerp: 0.1,
+      syncTouch: false,
+      normalizeWheel: true,
     });
     if (typeof ScrollTrigger !== "undefined") {
       lenis.on("scroll", ScrollTrigger.update);
     }
     gsap.ticker.add((time) => lenis.raf(time * 1000));
+    // lagSmoothing(0) disables GSAP's frame-drop catch-up — keeps anim duration
+    // constant regardless of 60Hz, 120Hz, 144Hz monitors
     gsap.ticker.lagSmoothing(0);
   } else {
     console.warn("[arundore] Lenis not loaded. Falling back to native scroll.");
@@ -301,20 +310,55 @@ function heroIntro() {
 function sectionReveals() {
   if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
 
-  gsap.utils.toArray(".intro__title, .metrics__title, .solutions__title, .leadership__title, .commit__title, .cta__title").forEach((el) => {
+  gsap.utils.toArray(".intro__title, .solutions__title, .leadership__title, .commit__title, .cta__title").forEach((el) => {
     gsap.from(el, {
       y: 60,
       opacity: 0,
       duration: 1.2,
       ease: "expo.out",
-      scrollTrigger: { trigger: el, start: "top 85%" },
+      scrollTrigger: { trigger: el, start: "top bottom", once: true },
     });
+  });
+
+  document.querySelectorAll(".metrics__title").forEach((el) => {
+    const reveal = () => el.classList.add("is-revealed");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          reveal();
+          io.disconnect();
+        }
+      });
+    }, { rootMargin: "0px 0px -10% 0px" });
+    io.observe(el);
+  });
+
+  document.querySelectorAll(".metric-row").forEach((row) => {
+    const cards = row.querySelectorAll(".kpi");
+    const revealAll = () => cards.forEach((card, i) => {
+      setTimeout(() => card.classList.add("is-revealed"), i * 90);
+    });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          revealAll();
+          io.disconnect();
+        }
+      });
+    }, { rootMargin: "0px 0px -5% 0px" });
+    io.observe(row);
+    setTimeout(() => {
+      if (!cards[0]?.classList.contains("is-revealed")) {
+        revealAll();
+        io.disconnect();
+      }
+    }, 2500);
   });
 
   gsap.utils.toArray(".intro__label, .metrics__label, .solutions__label, .leadership__label, .commit__label").forEach((el) => {
     gsap.from(el, {
       x: -20, opacity: 0, duration: 0.8, ease: "expo.out",
-      scrollTrigger: { trigger: el, start: "top 90%" },
+      scrollTrigger: { trigger: el, start: "top bottom", once: true },
     });
   });
 
@@ -322,7 +366,7 @@ function sectionReveals() {
     gsap.from(el, {
       y: 40, opacity: 0, duration: 1, ease: "expo.out",
       delay: (i % 3) * 0.08,
-      scrollTrigger: { trigger: el, start: "top 88%" },
+      scrollTrigger: { trigger: el, start: "top bottom", once: true },
     });
   });
 
@@ -330,7 +374,7 @@ function sectionReveals() {
     gsap.from(el, {
       y: 40, opacity: 0, duration: 0.9, ease: "expo.out",
       delay: i * 0.05,
-      scrollTrigger: { trigger: el, start: "top 92%" },
+      scrollTrigger: { trigger: el, start: "top bottom", once: true },
     });
   });
 
@@ -434,9 +478,14 @@ function initStoryIntroReveal() {
   if (typeof ScrollTrigger === "undefined") return;
   const intro = document.querySelector(".story-intro");
   if (!intro) return;
+  const nav = document.querySelector(".nav-sticky");
+
+  const goldOn = () => nav && nav.classList.add("is-gold");
+  const goldOff = () => nav && nav.classList.remove("is-gold");
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     intro.classList.add("is-revealed");
+    goldOn();
     return;
   }
 
@@ -445,6 +494,15 @@ function initStoryIntroReveal() {
     start: "top 78%",
     once: true,
     onEnter: () => intro.classList.add("is-revealed"),
+  });
+
+  ScrollTrigger.create({
+    trigger: intro,
+    start: "top 60%",
+    end: "max",
+    onEnter: goldOn,
+    onEnterBack: goldOn,
+    onLeaveBack: goldOff,
   });
 }
 
@@ -723,6 +781,18 @@ function stickyNav() {
     nav.style.visibility = "visible";
     nav.style.transform = "none";
   }
+
+  const STUCK_THRESHOLD = 120;
+  const onScroll = () => {
+    const y = window.scrollY || window.pageYOffset || 0;
+    nav.classList.toggle("is-stuck", y > STUCK_THRESHOLD);
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+  cleanupNavFallback = () => {
+    window.removeEventListener("scroll", onScroll);
+    nav.classList.remove("is-stuck");
+  };
 }
 
 /* ---------- ARRIVAL SCROLL NUDGE ---------- */
@@ -731,6 +801,8 @@ function arrivalNudge(delay = 0) {
     clearTimeout(arrivalNudgeTimer);
     arrivalNudgeTimer = null;
   }
+  return;
+  // disabled — no auto scroll on arrival
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   if ((window.scrollY || window.pageYOffset || 0) > 12) return;
@@ -775,6 +847,52 @@ async function initPage() {
   heroIntro();
   if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
   arrivalNudge(420);
+
+  // ensure ScrollTrigger positions stay correct across viewports / load events
+  setupResponsiveRefresh();
+}
+
+/* ---------- RESPONSIVE NORMALIZATION ----------
+   Triggers can drift when:
+     - viewport resizes
+     - fonts finish loading after init
+     - images/video load and change layout
+     - device pixel ratio differs (retina)
+   Force ScrollTrigger to recompute positions on each of these events. */
+let _responsiveBound = false;
+function setupResponsiveRefresh() {
+  if (_responsiveBound || typeof ScrollTrigger === "undefined") return;
+  _responsiveBound = true;
+
+  const refresh = () => {
+    try {
+      ScrollTrigger.refresh();
+      if (typeof heroIntro === "function") heroIntro();
+    } catch (e) {}
+  };
+
+  // debounce resize
+  let resizeTimer = null;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(refresh, 220);
+  });
+
+  // after every asset finishes loading
+  window.addEventListener("load", refresh);
+
+  // after web fonts settle (layout shift from Inter Tight / Montserrat / Fraunces)
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(refresh).catch(() => {});
+  }
+
+  // after images load (img cards, vignette, hero photo)
+  document.querySelectorAll("img").forEach((img) => {
+    if (!img.complete) img.addEventListener("load", refresh, { once: true });
+  });
+
+  // orientation change on tablets / phones
+  window.addEventListener("orientationchange", () => setTimeout(refresh, 250));
 }
 
 /* ---------- BARBA: page transitions (ready for multi-page) ---------- */
