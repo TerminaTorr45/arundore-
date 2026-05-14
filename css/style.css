@@ -39,10 +39,17 @@
 html, body { margin: 0; padding: 0; }
 html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 
-/* hide scrollbar globally (Lenis fait le smooth-scroll) */
-html { scrollbar-width: none; -ms-overflow-style: none; }
-html::-webkit-scrollbar { width: 0; height: 0; display: none; }
-body::-webkit-scrollbar { width: 0; height: 0; display: none; }
+/* scrollbar — visible native style */
+html { scrollbar-width: auto; scrollbar-color: rgba(10,62,58,.5) transparent; }
+html::-webkit-scrollbar { width: 16px; height: 16px; }
+html::-webkit-scrollbar-track { background: transparent; }
+html::-webkit-scrollbar-thumb {
+  background: rgba(10,62,58,.45);
+  border-radius: 12px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+html::-webkit-scrollbar-thumb:hover { background: rgba(10,62,58,.65); background-clip: padding-box; }
 body {
   background: var(--bg);
   color: var(--fg);

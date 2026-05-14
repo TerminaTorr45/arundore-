@@ -569,9 +569,8 @@ function initStoryScroll() {
 
   if (reduced) return;
 
-  // disable scroll-jacking on touch/small screens — native scroll feels better
-  const isTouch = window.matchMedia("(hover: none)").matches || window.innerWidth <= 900;
-  if (isTouch) return;
+  // scroll-jacking disabled — native scroll
+  return;
 
   /* ---- scroll-jacking ---- */
   let currentIndex = 0;
