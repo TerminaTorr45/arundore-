@@ -37,7 +37,8 @@
 /* ---------- RESET ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
-html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+body { max-width: 100vw; overflow-x: hidden; }
 
 /* scrollbar — visible native style */
 html { scrollbar-width: auto; scrollbar-color: rgba(10,62,58,.5) transparent; }
@@ -113,7 +114,7 @@ html.lenis { height: auto; }
   font-family: "Montserrat", system-ui, sans-serif;
   font-weight: 600;
   font-style: normal;
-  font-size: clamp(54px, 10vw, 166px);
+  font-size: clamp(54px, 8vw, 140px);
   line-height: .88;
   letter-spacing: -.06em;
   color: #f3f1ec;
@@ -895,7 +896,7 @@ html.js .nav-sticky {
 .hero__title {
   font-family: var(--f-serif);
   font-weight: 300;
-  font-size: clamp(72px, 18vw, 320px);
+  font-size: clamp(72px, 13vw, 220px);
   line-height: .88;
   letter-spacing: -.04em;
   margin: 0 0 40px;
@@ -1797,7 +1798,7 @@ section {
 .metric__num {
   font-family: var(--f-serif);
   font-weight: 300;
-  font-size: clamp(56px, 7vw, 112px);
+  font-size: clamp(56px, 5.5vw, 96px);
   line-height: 1;
   letter-spacing: -.04em;
   font-variant-numeric: tabular-nums;
@@ -2030,7 +2031,7 @@ section {
    ============================================================ */
 .cta {
   text-align: center;
-  padding: clamp(120px, 18vw, 240px) var(--pad);
+  padding: clamp(120px, 14vw, 180px) var(--pad);
 }
 .cta__inner {
   max-width: var(--max);
@@ -2048,7 +2049,7 @@ section {
 .cta__title {
   font-family: var(--f-serif);
   font-weight: 300;
-  font-size: clamp(48px, 9vw, 160px);
+  font-size: clamp(48px, 7vw, 120px);
   line-height: .92;
   letter-spacing: -.04em;
   margin: 0 0 60px;
@@ -2175,7 +2176,7 @@ section {
   font-family: var(--f-serif);
   font-weight: 300;
   font-style: italic;
-  font-size: clamp(50px, 13.5vw, 220px);
+  font-size: clamp(50px, 10vw, 160px);
   line-height: .85;
   letter-spacing: -.04em;
   color: var(--fg-faint);
