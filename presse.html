@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="fr" data-barba="wrapper">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Espace presse — Communiqués, dossiers et ressources Arundo Re." />
+  <title>Presse — Arundo Re</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@300;400;500;600;700&family=Pinyon+Script&family=Audiowide&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Stack+Sans+Notch:wght@200..700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css?v=112" />
+</head>
+
+<body class="page-profile page-presse">
+
+  <div class="page-curtain" id="pageCurtain" aria-hidden="true">
+    <span class="page-curtain__half page-curtain__half--top"></span>
+    <span class="page-curtain__half page-curtain__half--bot"></span>
+    <span class="page-curtain__brand">
+      <span class="page-curtain__line"></span>
+      <span class="page-curtain__brand-text"><span>Arundo</span><span class="page-curtain__brand-re">Re</span></span>
+    </span>
+  </div>
+
+  <header class="nav-sticky is-visible">
+    <a href="main.html" class="nav__logo" aria-label="Arundo Re"><img src="assets/img/logo-arundore.png" alt="Arundo Re Paris" class="nav__logo-img" /></a>
+    <nav class="nav__links" aria-label="Navigation principale">
+      <a href="main.html" class="nav-link"><span class="nav-link__inner"><span>Accueil</span><span aria-hidden="true">Accueil</span></span></a>
+      <div class="nav-item nav-item--has-sub">
+        <a href="main.html#decouvrir" class="nav-link" aria-haspopup="true"><span class="nav-link__inner"><span>Nous découvrir</span><span aria-hidden="true">Nous découvrir</span></span></a>
+        <div class="nav-sub" role="menu">
+          <div class="nav-sub__inner">
+            <p class="nav-sub__title">Nous découvrir</p>
+            <a href="main.html#decouvrir" class="nav-sub__link" role="menuitem">Arundo Re</a>
+            <a href="main.html#direction" class="nav-sub__link" role="menuitem">Notre gouvernance</a>
+            <a href="main.html#actualites" class="nav-sub__link" role="menuitem">Nos actualités</a>
+          </div>
+        </div>
+      </div>
+      <a href="main.html#finances" class="nav-link"><span class="nav-link__inner"><span>Informations financières</span><span aria-hidden="true">Informations financières</span></span></a>
+      <a href="experts.html" class="nav-link"><span class="nav-link__inner"><span>Solutions</span><span aria-hidden="true">Solutions</span></span></a>
+      <a href="main.html#engagements" class="nav-link"><span class="nav-link__inner"><span>Nos engagements</span><span aria-hidden="true">Nos engagements</span></span></a>
+      <a href="main.html#carrieres" class="nav-link"><span class="nav-link__inner"><span>Carrières</span><span aria-hidden="true">Carrières</span></span></a>
+      <a href="presse.html" class="nav-link"><span class="nav-link__inner"><span>Presse</span><span aria-hidden="true">Presse</span></span></a>
+    </nav>
+    <div class="nav__meta">
+      <button type="button" class="menu-toggle menu-toggle--nav" id="menuNavToggle" aria-label="Ouvrir le menu" aria-expanded="false"><span class="menu-toggle__label">Menu</span><span class="menu-toggle__bars" aria-hidden="true"><span class="menu-toggle__bar"></span><span class="menu-toggle__bar"></span></span></button>
+      <button type="button" class="menu-toggle" id="menuToggle" aria-label="Ouvrir le blog" aria-expanded="false"><span class="menu-toggle__label">Blog</span><span class="menu-toggle__bars" aria-hidden="true"><span class="menu-toggle__bar"></span><span class="menu-toggle__bar"></span></span></button>
+    </div>
+  </header>
+
+  <div class="side-menu" id="sideMenu" aria-hidden="true">
+    <div class="side-menu__overlay" data-menu-close></div>
+    <aside class="side-menu__panel" role="dialog" aria-label="Menu principal" aria-modal="true">
+      <header class="side-menu__head"><span class="side-menu__brand">Arundo&nbsp;Re</span><button class="side-menu__close" data-menu-close aria-label="Fermer le menu"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button></header>
+      <nav class="side-menu__primary" aria-label="Navigation principale mobile">
+        <ul class="side-menu__primary-list">
+          <li><a href="main.html" class="side-menu__primary-link">Accueil</a></li>
+          <li><a href="main.html#decouvrir" class="side-menu__primary-link">Nous découvrir</a></li>
+          <li><a href="main.html#finances" class="side-menu__primary-link">Informations financières</a></li>
+          <li><a href="experts.html" class="side-menu__primary-link">Solutions</a></li>
+          <li><a href="main.html#engagements" class="side-menu__primary-link">Nos engagements</a></li>
+          <li><a href="main.html#carrieres" class="side-menu__primary-link">Carrières</a></li>
+          <li><a href="presse.html" class="side-menu__primary-link">Presse</a></li>
+        </ul>
+      </nav>
+      <nav class="side-menu__nav" aria-label="Navigation site">
+        <ul class="side-menu__list">
+          <li class="side-menu__item" style="--i:1"><a href="main.html#actualites" class="side-menu__link"><span class="side-menu__num">01</span><span class="side-menu__label">Actualités Arundo Re</span></a></li>
+          <li class="side-menu__item" style="--i:2"><a href="main.html#tutos" class="side-menu__link"><span class="side-menu__num">02</span><span class="side-menu__label">Les Tutos de la réassurance</span></a></li>
+          <li class="side-menu__item" style="--i:3"><a href="main.html#talks" class="side-menu__link"><span class="side-menu__num">03</span><span class="side-menu__label">Arundo Re Talks</span></a></li>
+          <li class="side-menu__item" style="--i:4"><a href="main.html#women" class="side-menu__link"><span class="side-menu__num">04</span><span class="side-menu__label">Women of Power</span></a></li>
+          <li class="side-menu__item" style="--i:5"><a href="main.html#etude" class="side-menu__link"><span class="side-menu__num">05</span><span class="side-menu__label">Étude RC Automobile</span></a></li>
+        </ul>
+      </nav>
+      <footer class="side-menu__foot">
+        <div class="side-menu__foot-col"><span class="side-menu__foot-label">Contact</span><a href="mailto:contact@arundo.re">contact@arundo.re</a></div>
+        <div class="side-menu__foot-col"><span class="side-menu__foot-label">Suivre</span><div class="side-menu__socials"><a href="#">LinkedIn</a><a href="#">YouTube</a></div></div>
+        <span class="side-menu__tag">Always around.</span>
+      </footer>
+    </aside>
+  </div>
+
+  <main data-barba="container" data-barba-namespace="presse">
+
+    <!-- ============ HERO ============ -->
+    <section class="presse-page__hero">
+      <div class="presse-page__hero-media">
+        <img src="assets/presse/banni%C3%A8re%20page%20presse%20(1).jpg" alt="Espace presse Arundo Re" />
+      </div>
+      <div class="presse-page__hero-inner">
+        <p class="presse-page__eyebrow"><span class="dot"></span><span>Espace presse</span></p>
+        <h1 class="presse-page__title">
+          Espace<br/>
+          <span class="presse-page__title-italic">presse.</span>
+        </h1>
+        <p class="presse-page__lead">
+          L'espace presse vous propose un ensemble de ressources régulièrement
+          mises à jour. Vous pouvez retrouver nos derniers communiqués et
+          dossiers de presse, nos documents de référence ainsi que les
+          événements à venir. Pour toutes questions, n'hésitez pas à nous
+          contacter.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ KIT + CONTACT ============ -->
+    <section class="presse-page__row">
+      <div class="presse-page__row-inner">
+
+        <div class="presse-kit">
+          <div class="presse-kit__text">
+            <h2 class="presse-kit__title">Kit Presse<br/>Arundo Re</h2>
+            <a class="presse-kit__cta" href="https://www.arundore.com/documents/d/arundore/kit-presse-arundo-re-fr" target="_blank" rel="noopener">Accédez aux ressources</a>
+          </div>
+          <a class="presse-kit__media" href="https://www.arundore.com/documents/d/arundore/kit-presse-arundo-re-fr" target="_blank" rel="noopener">
+            <img src="assets/presse/t%C3%A9l%C3%A9charger%20notre%20brochure_banniere%20650x350%20ARUNDO%20RE.png" alt="Télécharger la brochure Arundo Re" />
+          </a>
+        </div>
+
+        <div class="presse-contact">
+          <div class="presse-contact__head">
+            <h2 class="presse-contact__title">Une demande<br/>presse ?</h2>
+            <span class="presse-contact__rule" aria-hidden="true"></span>
+            <a class="presse-contact__cta" href="mailto:presse@arundo.re">Contactez-nous</a>
+          </div>
+          <div class="presse-contact__person">
+            <img class="presse-contact__photo" src="assets/presse/maya%20tesson%20(1).png" alt="Maya Tesson" />
+            <div class="presse-contact__info">
+              <p class="presse-contact__name">Maya Tesson</p>
+              <p class="presse-contact__role">Responsable<br/>Communication</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ COMMUNIQUÉS ============ -->
+    <section class="presse-cp">
+      <div class="presse-cp__inner">
+        <div class="presse-cp__heading">
+          <h2 class="presse-cp__title">
+            Découvrez l'ensemble<br/>
+            <span class="presse-cp__title-italic">de nos communiqués de presse</span>
+          </h2>
+          <span class="presse-cp__rule" aria-hidden="true"></span>
+        </div>
+
+        <!-- 2026 -->
+        <div class="presse-cp__year">
+          <h3 class="presse-cp__year-label">2026</h3>
+          <div class="presse-cp__grid">
+            <article class="cp-card"><img class="cp-card__thumb" src="https://www.arundore.com/o/commerce-media/accounts/-1/images/291413?download=false" alt="" loading="lazy" />
+              <span class="cp-card__badge">Communiqué de presse</span>
+              <h4 class="cp-card__title">Émission réussie du compartiment 157 Re 26 par Arundo Re</h4>
+              <p class="cp-card__date">27/01/2026</p>
+              <div class="cp-card__actions">
+                <a class="cp-card__action" href="https://www.arundore.com/documents/d/arundore/cp-157-re-2026-vfr_27012026" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Voir le document</a>
+                <a class="cp-card__action cp-card__action--dl" href="https://www.arundore.com/documents/20123/594416/CP+157+Re+2026+VFR_27012026.pdf/2ee9c1d5-2ec0-9b27-c7de-0d0b32115a23?version=2.1&amp;t=1769443847060&amp;download=true" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Télécharger</a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- 2025 -->
+        <div class="presse-cp__year">
+          <h3 class="presse-cp__year-label">2025</h3>
+          <div class="presse-cp__grid">
+            <article class="cp-card"><img class="cp-card__thumb" src="https://www.arundore.com/o/commerce-media/accounts/-1/images/291413?download=false" alt="" loading="lazy" />
+              <span class="cp-card__badge">Communiqué de presse</span>
+              <h4 class="cp-card__title">2025, une année de performance confirmée</h4>
+              <p class="cp-card__date">03/04/2026</p>
+              <div class="cp-card__actions">
+                <a class="cp-card__action" href="https://www.arundore.com/documents/20123/613267/CP+R%C3%A9sutats+2025+FR_version+finale+%281%29.pdf/9fc7acdf-f28d-0a7b-bc73-f2b87fada02c?version=1.0&amp;t=1775146103005" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Voir le document</a>
+                <a class="cp-card__action cp-card__action--dl" href="https://www.arundore.com/documents/20123/613267/CP+R%C3%A9sutats+2025+FR_version+finale+%281%29.pdf/9fc7acdf-f28d-0a7b-bc73-f2b87fada02c?version=1.0&amp;t=1775146103005&amp;download=true" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Télécharger</a>
+              </div>
+            </article>
+            <article class="cp-card"><img class="cp-card__thumb" src="https://www.arundore.com/o/commerce-media/accounts/-1/images/291413?download=false" alt="" loading="lazy" />
+              <span class="cp-card__badge">Communiqué de presse</span>
+              <h4 class="cp-card__title">SMABTP et MACSF finalisent l'acquisition à 100 % d'Arundo Re</h4>
+              <p class="cp-card__date">28/07/2025</p>
+              <div class="cp-card__actions">
+                <a class="cp-card__action" href="https://www.arundore.com/documents/d/arundore/cp-arundo-re-28-juillet-2025" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Voir le document</a>
+                <a class="cp-card__action cp-card__action--dl" href="https://www.arundore.com/documents/20123/568785/CP+Arundo+Re+-+28+juillet+2025.pdf/8208bf75-dc75-a236-6f77-b53718663c14?version=1.0&amp;t=1753689396318&amp;download=true" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Télécharger</a>
+              </div>
+            </article>
+            <article class="cp-card"><img class="cp-card__thumb" src="https://www.arundore.com/o/commerce-media/accounts/-1/images/291413?download=false" alt="" loading="lazy" />
+              <span class="cp-card__badge">Communiqué de presse</span>
+              <h4 class="cp-card__title">Raphaël Marin rejoint Arundo Re en tant que Souscripteur et Actuaire Non-Vie pour la zone Amérique latine</h4>
+              <p class="cp-card__date">10/06/2025</p>
+              <div class="cp-card__actions">
+                <a class="cp-card__action" href="https://www.arundore.com/documents/20123/541723/CP+Nomination+Raphael+Marin+FR.pdf/58d6bd05-c917-547b-a4ee-cf0981038137?version=1.0&amp;t=1753789242067" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Voir le document</a>
+                <a class="cp-card__action cp-card__action--dl" href="https://www.arundore.com/documents/20123/541723/CP+Nomination+Raphael+Marin+FR.pdf/58d6bd05-c917-547b-a4ee-cf0981038137?version=1.0&amp;t=1753789242067&amp;download=true" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Télécharger</a>
+              </div>
+            </article>
+            <article class="cp-card"><img class="cp-card__thumb" src="https://www.arundore.com/o/commerce-media/accounts/-1/images/291413?download=false" alt="" loading="lazy" />
+              <span class="cp-card__badge">Communiqué de presse</span>
+              <h4 class="cp-card__title">Guillaume Bergot rejoint Arundo Re en tant que Souscripteur Non-Vie pour les marchés français, belge et luxembourgeois</h4>
+              <p class="cp-card__date">12/05/2025</p>
+              <div class="cp-card__actions">
+                <a class="cp-card__action" href="https://www.arundore.com/documents/20123/560048/CP+Nomination+Guillaume+Bergot+FR.pdf/669a6a0f-2410-bdbc-0553-047db534b921?version=1.0&amp;t=1747228992498" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Voir le document</a>
+                <a class="cp-card__action cp-card__action--dl" href="https://www.arundore.com/documents/20123/560048/CP+Nomination+Guillaume+Bergot+FR.pdf/669a6a0f-2410-bdbc-0553-047db534b921?version=1.0&amp;t=1747228992498&amp;download=true" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Télécharger</a>
+              </div>
+            </article>
+            <article class="cp-card"><img class="cp-card__thumb" src="https://www.arundore.com/o/commerce-media/accounts/-1/images/291413?download=false" alt="" loading="lazy" />
+              <span class="cp-card__badge">Communiqué de presse</span>
+              <h4 class="cp-card__title">Kshitij Chirimar rejoint Arundo Re en tant que Souscripteur Senior sur le sous-continent indien</h4>
+              <p class="cp-card__date">14/04/2025</p>
+              <div class="cp-card__actions">
+                <a class="cp-card__action" href="https://www.arundore.com/documents/20123/541723/CP+Nomination+Kshitij+Chirimar+FR+%282%29+%281%29.pdf/afb9d710-39bc-2a80-a5c7-4cd3eeda1675?version=1.0&amp;t=1752068787237" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Voir le document</a>
+                <a class="cp-card__action cp-card__action--dl" href="https://www.arundore.com/documents/20123/541723/CP+Nomination+Kshitij+Chirimar+FR+%282%29+%281%29.pdf/afb9d710-39bc-2a80-a5c7-4cd3eeda1675?version=1.0&amp;t=1752068787237&amp;download=true" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Télécharger</a>
+              </div>
+            </article>
+            <article class="cp-card"><img class="cp-card__thumb" src="https://www.arundore.com/o/commerce-media/accounts/-1/images/291413?download=false" alt="" loading="lazy" />
+              <span class="cp-card__badge">Communiqué de presse</span>
+              <h4 class="cp-card__title">Communiqué de Presse Résultats annuels 2024</h4>
+              <p class="cp-card__date">04/03/2025</p>
+              <div class="cp-card__actions">
+                <a class="cp-card__action" href="https://www.arundore.com/documents/20123/539470/Communiqu%C3%A9+de+Presse+R%C3%A9sultats+annuels+2024/ced5f469-8b83-4beb-1a45-8465b886cd1f?version=1.0&amp;t=1778056371861" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Voir le document</a>
+                <a class="cp-card__action cp-card__action--dl" href="https://www.arundore.com/documents/20123/539470/Communiqu%C3%A9+de+Presse+R%C3%A9sultats+annuels+2024/ced5f469-8b83-4beb-1a45-8465b886cd1f?version=1.0&amp;t=1778056371861&amp;download=true" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Télécharger</a>
+              </div>
+            </article>
+            <article class="cp-card"><img class="cp-card__thumb" src="https://www.arundore.com/o/commerce-media/accounts/-1/images/291413?download=false" alt="" loading="lazy" />
+              <span class="cp-card__badge">Communiqué de presse</span>
+              <h4 class="cp-card__title">CCR Re émet avec succès 157 Re 25, septième compartiment de son sidecar</h4>
+              <p class="cp-card__date">01/08/2025</p>
+              <div class="cp-card__actions">
+                <a class="cp-card__action" href="https://www.arundore.com/documents/20123/539470/CCR+Re+-+Communiqu%C3%A9+de+Presse+157Re25.pdf/e46f9396-92a7-6f00-efe1-135b55a5f614?version=1.0&amp;t=1736879942161" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Voir le document</a>
+                <a class="cp-card__action cp-card__action--dl" href="https://www.arundore.com/documents/20123/539470/CCR+Re+-+Communiqu%C3%A9+de+Presse+157Re25.pdf/e46f9396-92a7-6f00-efe1-135b55a5f614?version=1.0&amp;t=1736879942161&amp;download=true" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Télécharger</a>
+              </div>
+            </article>
+            <article class="cp-card"><img class="cp-card__thumb" src="https://www.arundore.com/o/commerce-media/accounts/-1/images/291413?download=false" alt="" loading="lazy" />
+              <span class="cp-card__badge">Communiqué de presse</span>
+              <h4 class="cp-card__title">Lors des renouvellements du 1er janvier, Arundo Re a poursuivi sur sa trajectoire de croissance disciplinée</h4>
+              <p class="cp-card__date">05/02/2025</p>
+              <div class="cp-card__actions">
+                <a class="cp-card__action" href="https://www.arundore.com/documents/20123/546232/Communiqu%C3%A9+de+presse+Arundo+Re+05-02-2025.pdf/50ad86a1-bc89-86f5-5206-fed7d8b46c9c?version=1.0&amp;t=1738827650422" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Voir le document</a>
+                <a class="cp-card__action cp-card__action--dl" href="https://www.arundore.com/documents/20123/546232/Communiqu%C3%A9+de+presse+Arundo+Re+05-02-2025.pdf/50ad86a1-bc89-86f5-5206-fed7d8b46c9c?version=1.0&amp;t=1738827650422&amp;download=true" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Télécharger</a>
+              </div>
+            </article>
+            <article class="cp-card"><img class="cp-card__thumb" src="https://www.arundore.com/o/commerce-media/accounts/-1/images/291413?download=false" alt="" loading="lazy" />
+              <span class="cp-card__badge">Communiqué de presse</span>
+              <h4 class="cp-card__title">CCR Re devient Arundo Re</h4>
+              <p class="cp-card__date">17/01/2025</p>
+              <div class="cp-card__actions">
+                <a class="cp-card__action" href="https://www.arundore.com/documents/20123/546228/CP+Arundo+Re+17.01.25+9h+-+FR.pdf/0b0f7000-8abf-551c-b18d-83b897d35fd0?version=1.1&amp;t=1775563900396" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Voir le document</a>
+                <a class="cp-card__action cp-card__action--dl" href="https://www.arundore.com/documents/20123/546228/CP+Arundo+Re+17.01.25+9h+-+FR.pdf/0b0f7000-8abf-551c-b18d-83b897d35fd0?version=1.1&amp;t=1775563900396&amp;download=true" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Télécharger</a>
+              </div>
+            </article>
+            <article class="cp-card"><img class="cp-card__thumb" src="https://www.arundore.com/o/commerce-media/accounts/-1/images/291413?download=false" alt="" loading="lazy" />
+              <span class="cp-card__badge">Communiqué de presse</span>
+              <h4 class="cp-card__title">Ludovic Boulanger rejoint Arundo Re en qualité de Souscripteur Vie</h4>
+              <p class="cp-card__date">01/07/2025</p>
+              <div class="cp-card__actions">
+                <a class="cp-card__action" href="https://www.arundore.com/documents/20123/541723/Nomination+Ludovic+Boulanger+FR.pdf/bf026536-f023-f009-4d58-aefecc6dd782?version=1.0&amp;t=1753789234637" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Voir le document</a>
+                <a class="cp-card__action cp-card__action--dl" href="https://www.arundore.com/documents/20123/541723/Nomination+Ludovic+Boulanger+FR.pdf/bf026536-f023-f009-4d58-aefecc6dd782?version=1.0&amp;t=1753789234637&amp;download=true" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Télécharger</a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- 2024 -->
+        <div class="presse-cp__year">
+          <h3 class="presse-cp__year-label">2024</h3>
+          <div class="presse-cp__grid">
+            <article class="cp-card"><img class="cp-card__thumb" src="https://www.arundore.com/o/commerce-media/accounts/-1/images/291413?download=false" alt="" loading="lazy" />
+              <span class="cp-card__badge">Communiqué de presse</span>
+              <h4 class="cp-card__title">Vaibhavi Mehta rejoint CCR Re en qualité de Directrice Souscription Vie</h4>
+              <p class="cp-card__date">02/10/2024</p>
+              <div class="cp-card__actions">
+                <a class="cp-card__action" href="https://www.arundore.com/documents/20123/541723/CCR+Re+Nomination+Vaibhavi+Mehta+FR.pdf/dcea8c91-a463-d2ef-85b1-5a27435386f8?version=1.0&amp;t=1753789234557" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Voir le document</a>
+                <a class="cp-card__action cp-card__action--dl" href="https://www.arundore.com/documents/20123/541723/CCR+Re+Nomination+Vaibhavi+Mehta+FR.pdf/dcea8c91-a463-d2ef-85b1-5a27435386f8?version=1.0&amp;t=1753789234557&amp;download=true" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Télécharger</a>
+              </div>
+            </article>
+            <article class="cp-card"><img class="cp-card__thumb" src="https://www.arundore.com/o/commerce-media/accounts/-1/images/291413?download=false" alt="" loading="lazy" />
+              <span class="cp-card__badge">Communiqué de presse</span>
+              <h4 class="cp-card__title">CCR Re - Key figures for the first semester of 2024</h4>
+              <p class="cp-card__date">05/09/2024</p>
+              <div class="cp-card__actions">
+                <a class="cp-card__action" href="https://www.arundore.com/documents/20123/470498/CCR+Re+CP+FR+R%C3%A9sultats+semestriels+S2+2024+%282%29.pdf/4e9d5403-ad63-fe06-47f2-2586bdfed63e?version=1.0&amp;t=1726759387661" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Voir le document</a>
+                <a class="cp-card__action cp-card__action--dl" href="https://www.arundore.com/documents/20123/470498/CCR+Re+CP+FR+R%C3%A9sultats+semestriels+S2+2024+%282%29.pdf/4e9d5403-ad63-fe06-47f2-2586bdfed63e?version=1.0&amp;t=1726759387661&amp;download=true" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Télécharger</a>
+              </div>
+            </article>
+            <article class="cp-card"><img class="cp-card__thumb" src="https://www.arundore.com/o/commerce-media/accounts/-1/images/291413?download=false" alt="" loading="lazy" />
+              <span class="cp-card__badge">Communiqué de presse</span>
+              <h4 class="cp-card__title">Sébastien Jallet rejoint CCR Re en qualité de Directeur des Investissements</h4>
+              <p class="cp-card__date">02/09/2024</p>
+              <div class="cp-card__actions">
+                <a class="cp-card__action" href="https://www.arundore.com/documents/20123/541723/CCR+Re+-+Nomination+S%C3%A9bastien+Jallet.pdf/5ffc51f9-a044-0a0d-af8f-964a8ae936f3?version=1.0&amp;t=1753789216707" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Voir le document</a>
+                <a class="cp-card__action cp-card__action--dl" href="https://www.arundore.com/documents/20123/541723/CCR+Re+-+Nomination+S%C3%A9bastien+Jallet.pdf/5ffc51f9-a044-0a0d-af8f-964a8ae936f3?version=1.0&amp;t=1753789216707&amp;download=true" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Télécharger</a>
+              </div>
+            </article>
+            <article class="cp-card"><img class="cp-card__thumb" src="https://www.arundore.com/o/commerce-media/accounts/-1/images/291413?download=false" alt="" loading="lazy" />
+              <span class="cp-card__badge">Communiqué de presse</span>
+              <h4 class="cp-card__title">CCR Re - Renouvellements au 1er janvier 2024</h4>
+              <p class="cp-card__date">05/02/2024</p>
+              <div class="cp-card__actions">
+                <a class="cp-card__action" href="https://www.arundore.com/documents/20123/0/FR+CP+Renouvellements+2024.pdf/390eef81-b924-06cf-befa-1f95d00e51e0?version=1.0&amp;t=1718708441700" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Voir le document</a>
+                <a class="cp-card__action cp-card__action--dl" href="https://www.arundore.com/documents/20123/0/FR+CP+Renouvellements+2024.pdf/390eef81-b924-06cf-befa-1f95d00e51e0?version=1.0&amp;t=1718708441700&amp;download=true" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Télécharger</a>
+              </div>
+            </article>
+            <article class="cp-card"><img class="cp-card__thumb" src="https://www.arundore.com/o/commerce-media/accounts/-1/images/291413?download=false" alt="" loading="lazy" />
+              <span class="cp-card__badge">Communiqué de presse</span>
+              <h4 class="cp-card__title">CCR Re a lancé avec succès 157 Re 24 le sixième compartiment de son sidecar</h4>
+              <p class="cp-card__date">16/01/2024</p>
+              <div class="cp-card__actions">
+                <a class="cp-card__action" href="https://www.arundore.com/documents/20123/0/FR+CP+CCR+Re+-+157Re+24.pdf/9fe84e7d-56d6-654c-d238-0e2f7f537165?version=1.0&amp;t=1718708012546" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Voir le document</a>
+                <a class="cp-card__action cp-card__action--dl" href="https://www.arundore.com/documents/20123/0/FR+CP+CCR+Re+-+157Re+24.pdf/9fe84e7d-56d6-654c-d238-0e2f7f537165?version=1.0&amp;t=1718708012546&amp;download=true" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Télécharger</a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- 2023 -->
+        <div class="presse-cp__year">
+          <h3 class="presse-cp__year-label">2023</h3>
+          <div class="presse-cp__grid">
+            <article class="cp-card"><img class="cp-card__thumb" src="https://www.arundore.com/o/commerce-media/accounts/-1/images/291413?download=false" alt="" loading="lazy" />
+              <span class="cp-card__badge">Communiqué de presse</span>
+              <h4 class="cp-card__title">CCR Re - Résultats Annuel 2023</h4>
+              <p class="cp-card__date">02/04/2024</p>
+              <div class="cp-card__actions">
+                <a class="cp-card__action" href="https://www.arundore.com/documents/20123/342272/Vdef+CP+R%C3%A9sultat+Annuel+FR+02-04.pdf/ca5c52b0-63bd-1571-f329-cfe2d3b06937?version=1.0&amp;t=1712057020895" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Voir le document</a>
+                <a class="cp-card__action cp-card__action--dl" href="https://www.arundore.com/documents/20123/342272/Vdef+CP+R%C3%A9sultat+Annuel+FR+02-04.pdf/ca5c52b0-63bd-1571-f329-cfe2d3b06937?version=1.0&amp;t=1712057020895&amp;download=true" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Télécharger</a>
+              </div>
+            </article>
+            <article class="cp-card"><img class="cp-card__thumb" src="https://www.arundore.com/o/commerce-media/accounts/-1/images/291413?download=false" alt="" loading="lazy" />
+              <span class="cp-card__badge">Communiqué de presse</span>
+              <h4 class="cp-card__title">CCR Re - Chiffres clés du premier semestre 2023</h4>
+              <p class="cp-card__date">06/09/2023</p>
+              <div class="cp-card__actions">
+                <a class="cp-card__action" href="https://www.arundore.com/documents/d/arundore/communique-de-presse-ccr-re-chiffres-cles-premier-semestre-2023" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Voir le document</a>
+                <a class="cp-card__action cp-card__action--dl" href="https://www.arundore.com/documents/20123/342272/Communiqu%C3%A9+de+Presse+CCR+Re+Chiffres+Cl%C3%A9s+premier+semestre+2023.pdf/47a68a18-675d-6228-bbff-439944aabc4e?version=1.0&amp;t=1693997366535&amp;download=true" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Télécharger</a>
+              </div>
+            </article>
+            <article class="cp-card"><img class="cp-card__thumb" src="https://www.arundore.com/o/commerce-media/accounts/-1/images/291413?download=false" alt="" loading="lazy" />
+              <span class="cp-card__badge">Communiqué de presse</span>
+              <h4 class="cp-card__title">SMABTP et MACSF finalisent l&#39;acquisition de la majorité du capital de CCR RE, à l&#39;occasion de sa privatisation</h4>
+              <p class="cp-card__date">03/07/2023</p>
+              <div class="cp-card__actions">
+                <a class="cp-card__action" href="https://www.arundore.com/documents/d/arundore/cp-ccr-re-03-07-23-pdf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Voir le document</a>
+                <a class="cp-card__action cp-card__action--dl" href="https://www.arundore.com/documents/20123/342272/CP+CCR+Re+03-07-23.pdf/f1a7537c-a24e-1919-9bf2-8c21664dfa6a?version=1.0&amp;t=1688388501411&amp;download=true" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Télécharger</a>
+              </div>
+            </article>
+            <article class="cp-card"><img class="cp-card__thumb" src="https://www.arundore.com/o/commerce-media/accounts/-1/images/291413?download=false" alt="" loading="lazy" />
+              <span class="cp-card__badge">Communiqué de presse</span>
+              <h4 class="cp-card__title">CCR entre en négociations exclusives avec le consortium formé par SMABTP et MACSF en vue de la cession du contrôle de CCR RE et d&#39;une augmentation de son capital de 200M€</h4>
+              <p class="cp-card__date">08/02/2023</p>
+              <div class="cp-card__actions">
+                <a class="cp-card__action" href="https://arundore.foleon.com/communique-de-presse/ccr-entre-en-negociations-exclusives/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>Voir le document</a>
+                <a class="cp-card__action cp-card__action--dl" href="https://www.arundore.com/documents/20123/342272/CP+-+8+f%C3%A9vrier+2023+-+VF+-+18h00.pdf/9e2ec931-6aae-d04f-bd4d-de1b23964359?version=1.0&amp;t=1675871624094&amp;download=true" target="_blank" rel="noopener" download><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Télécharger</a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <footer class="footer footer--dark">
+      <div class="footer__top">
+        <div class="footer__brand"><img src="assets/img/logo-arundore.png" alt="Arundo Re Paris" class="footer__logo"/></div>
+        <nav class="footer__col" aria-label="Liens entreprise">
+          <a href="experts.html" data-cursor="hover">Nos experts</a>
+          <a href="#" data-cursor="hover">Relations Investisseurs</a>
+          <a href="#" data-cursor="hover">Contact</a>
+          <a href="#" data-cursor="hover">Accessibilité : partiellement conforme</a>
+        </nav>
+        <nav class="footer__col" aria-label="Liens contenus">
+          <a href="main.html#decouvrir" data-cursor="hover">Nous découvrir</a>
+          <a href="main.html#solutions" data-cursor="hover">Solutions</a>
+          <a href="presse.html" data-cursor="hover">Presse</a>
+        </nav>
+        <div class="footer__newsletter"><p class="footer__newsletter-label">Inscription à notre newsletter :</p><button type="button" class="footer__newsletter-btn" data-cursor="hover">Je m'inscris</button></div>
+        <div class="footer__contact">
+          <div class="footer__address"><svg class="footer__pin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s7-7.5 7-13a7 7 0 1 0-14 0c0 5.5 7 13 7 13z"/><circle cx="12" cy="9" r="2.5"/></svg><p>6 rue Favart,<br/>75002 Paris&nbsp;- FRANCE</p></div>
+          <div class="footer__social">
+            <a href="#" aria-label="YouTube" data-cursor="hover"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 0 0 .5 6.2C0 8 0 12 0 12s0 4 .5 5.8a3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.8.5-5.8.5-5.8s0-4-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
+            <a href="#" aria-label="LinkedIn" data-cursor="hover"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5V9.5h3V19zM6.5 8.2a1.7 1.7 0 1 1 0-3.4 1.7 1.7 0 0 1 0 3.4zM19 19h-3v-5c0-1.2-.5-2-1.6-2-1 0-1.6.7-1.6 2v5h-3V9.5h3v1.2c.5-.8 1.4-1.4 2.7-1.4 2.1 0 3.5 1.4 3.5 4V19z"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__big" aria-hidden="true">ARUNDO&nbsp;RE</div>
+      <div class="footer__bottom">
+        <span class="footer__legal"><a href="#" data-cursor="hover">Mentions légales</a><a href="#" data-cursor="hover">Données personnelles</a><a href="#" data-cursor="hover">Cookies</a></span>
+        <span>© - Arundo Re 2026 All rights reserved</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@barba/core@2.10.3/dist/barba.umd.js"></script>
+  <script src="js/main.js?v=37"></script>
+</body>
+</html>

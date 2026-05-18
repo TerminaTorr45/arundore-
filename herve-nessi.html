@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr" data-barba="wrapper">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Hervé Nessi — Directeur Général de la Souscription d'Arundo Re. Vie & Santé, Dommages & Responsabilité, Spécialités · Monde." />
+  <title>Hervé Nessi — Arundo Re</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@300;400;500;600;700&family=Pinyon+Script&family=Audiowide&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Stack+Sans+Notch:wght@200..700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css?v=112" />
+</head>
+
+<body class="page-profile">
+
+  <!-- ============ PAGE TRANSITION CURTAIN ============ -->
+  <div class="page-curtain" id="pageCurtain" aria-hidden="true">
+    <span class="page-curtain__half page-curtain__half--top"></span>
+    <span class="page-curtain__half page-curtain__half--bot"></span>
+    <span class="page-curtain__brand">
+      <span class="page-curtain__line"></span>
+      <span class="page-curtain__brand-text">
+        <span>Arundo</span><span class="page-curtain__brand-re">Re</span>
+      </span>
+    </span>
+  </div>
+
+  <!-- ============ NAV (sticky) ============ -->
+  <header class="nav-sticky is-visible">
+    <a href="main.html" class="nav__logo" aria-label="Arundo Re">
+      <img src="assets/img/logo-arundore.png" alt="Arundo Re Paris" class="nav__logo-img" />
+    </a>
+
+    <nav class="nav__links" aria-label="Navigation principale">
+      <a href="main.html"     class="nav-link"><span class="nav-link__inner"><span>Accueil</span><span aria-hidden="true">Accueil</span></span></a>
+
+      <div class="nav-item nav-item--has-sub">
+        <a href="main.html#decouvrir" class="nav-link" aria-haspopup="true">
+          <span class="nav-link__inner"><span>Nous découvrir</span><span aria-hidden="true">Nous découvrir</span></span>
+        </a>
+        <div class="nav-sub" role="menu">
+          <div class="nav-sub__inner">
+            <p class="nav-sub__title">Nous découvrir</p>
+            <a href="main.html#decouvrir" class="nav-sub__link" role="menuitem">Arundo Re</a>
+            <a href="main.html#direction" class="nav-sub__link" role="menuitem">Notre gouvernance</a>
+            <a href="main.html#actualites" class="nav-sub__link" role="menuitem">Nos actualités</a>
+          </div>
+        </div>
+      </div>
+
+      <a href="main.html#finances"    class="nav-link"><span class="nav-link__inner"><span>Informations financières</span><span aria-hidden="true">Informations financières</span></span></a>
+      <a href="main.html#solutions"   class="nav-link"><span class="nav-link__inner"><span>Solutions</span><span aria-hidden="true">Solutions</span></span></a>
+      <a href="main.html#engagements" class="nav-link"><span class="nav-link__inner"><span>Nos engagements</span><span aria-hidden="true">Nos engagements</span></span></a>
+      <a href="main.html#carrieres"   class="nav-link"><span class="nav-link__inner"><span>Carrières</span><span aria-hidden="true">Carrières</span></span></a>
+      <a href="presse.html"      class="nav-link"><span class="nav-link__inner"><span>Presse</span><span aria-hidden="true">Presse</span></span></a>
+    </nav>
+
+    <div class="nav__meta">
+      <button type="button" class="menu-toggle menu-toggle--nav" id="menuNavToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span class="menu-toggle__label">Menu</span>
+        <span class="menu-toggle__bars" aria-hidden="true">
+          <span class="menu-toggle__bar"></span>
+          <span class="menu-toggle__bar"></span>
+        </span>
+      </button>
+      <button type="button" class="menu-toggle" id="menuToggle" aria-label="Ouvrir le blog" aria-expanded="false">
+        <span class="menu-toggle__label">Blog</span>
+        <span class="menu-toggle__bars" aria-hidden="true">
+          <span class="menu-toggle__bar"></span>
+          <span class="menu-toggle__bar"></span>
+        </span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ SIDE MENU ============ -->
+  <div class="side-menu" id="sideMenu" aria-hidden="true">
+    <div class="side-menu__overlay" data-menu-close></div>
+
+    <aside class="side-menu__panel" role="dialog" aria-label="Menu principal" aria-modal="true">
+      <header class="side-menu__head">
+        <span class="side-menu__brand">Arundo&nbsp;Re</span>
+        <button class="side-menu__close" data-menu-close aria-label="Fermer le menu">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </header>
+
+      <nav class="side-menu__primary" aria-label="Navigation principale mobile">
+        <ul class="side-menu__primary-list">
+          <li><a href="main.html" class="side-menu__primary-link">Accueil</a></li>
+          <li><a href="main.html#decouvrir" class="side-menu__primary-link">Nous découvrir</a></li>
+          <li><a href="main.html#finances" class="side-menu__primary-link">Informations financières</a></li>
+          <li><a href="main.html#solutions" class="side-menu__primary-link">Solutions</a></li>
+          <li><a href="main.html#engagements" class="side-menu__primary-link">Nos engagements</a></li>
+          <li><a href="main.html#carrieres" class="side-menu__primary-link">Carrières</a></li>
+          <li><a href="presse.html" class="side-menu__primary-link">Presse</a></li>
+        </ul>
+      </nav>
+
+      <nav class="side-menu__nav" aria-label="Navigation site">
+        <ul class="side-menu__list">
+          <li class="side-menu__item" style="--i:1">
+            <a href="main.html#actualites" class="side-menu__link">
+              <span class="side-menu__num">01</span>
+              <span class="side-menu__label">Actualités Arundo Re</span>
+            </a>
+          </li>
+          <li class="side-menu__item" style="--i:2">
+            <a href="main.html#tutos" class="side-menu__link">
+              <span class="side-menu__num">02</span>
+              <span class="side-menu__label">Les Tutos de la réassurance</span>
+            </a>
+          </li>
+          <li class="side-menu__item" style="--i:3">
+            <a href="main.html#talks" class="side-menu__link">
+              <span class="side-menu__num">03</span>
+              <span class="side-menu__label">Arundo Re Talks</span>
+            </a>
+          </li>
+          <li class="side-menu__item" style="--i:4">
+            <a href="main.html#women" class="side-menu__link">
+              <span class="side-menu__num">04</span>
+              <span class="side-menu__label">Women of Power</span>
+            </a>
+          </li>
+          <li class="side-menu__item" style="--i:5">
+            <a href="main.html#etude" class="side-menu__link">
+              <span class="side-menu__num">05</span>
+              <span class="side-menu__label">Étude RC Automobile</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <footer class="side-menu__foot">
+        <div class="side-menu__foot-col">
+          <span class="side-menu__foot-label">Contact</span>
+          <a href="mailto:contact@arundo.re">contact@arundo.re</a>
+        </div>
+        <div class="side-menu__foot-col">
+          <span class="side-menu__foot-label">Suivre</span>
+          <div class="side-menu__socials">
+            <a href="#">LinkedIn</a>
+            <a href="#">YouTube</a>
+          </div>
+        </div>
+        <span class="side-menu__tag">Always around.</span>
+      </footer>
+    </aside>
+  </div>
+
+  <main data-barba="container" data-barba-namespace="profile">
+
+
+    <!-- ============ PORTRAIT HERO ============ -->
+    <section class="profile-hero">
+      <div class="profile-hero__inner">
+
+        <div class="profile-hero__media">
+          <div class="profile-hero__photo">
+            <img src="assets/img/Herv%C3%A9%20Nessi.jpg" alt="Portrait d'Hervé Nessi" />
+          </div>
+          <div class="profile-hero__badge" aria-hidden="true">
+            <span>Always</span>
+            <span>around.</span>
+          </div>
+        </div>
+
+        <div class="profile-hero__body">
+          <p class="profile-hero__eyebrow">
+            <span class="dot"></span>
+            <span>Gouvernance · Direction Générale</span>
+          </p>
+
+          <h1 class="profile-hero__name">
+            <span class="profile-hero__name-line">Hervé</span>
+            <span class="profile-hero__name-line profile-hero__name-line--italic">Nessi.</span>
+          </h1>
+
+          <p class="profile-hero__role">
+            Directeur Général de la Souscription <span class="profile-hero__sep" aria-hidden="true">|</span>
+            Vie &amp; Santé, Dommages &amp; Responsabilité, Spécialités
+            <span class="profile-hero__sep" aria-hidden="true">|</span>
+            <span class="profile-hero__loc">
+              <svg class="profile-hero__pin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s7-7.5 7-13a7 7 0 1 0-14 0c0 5.5 7 13 7 13z"/>
+                <circle cx="12" cy="9" r="2.5"/>
+              </svg>
+              Monde
+            </span>
+            <span class="profile-hero__since">depuis 2017</span>
+          </p>
+
+          <div class="profile-hero__meta">
+            <a class="profile-hero__linkedin" href="https://www.linkedin.com/in/hervé-nessi-70b31055/" target="_blank" rel="noopener" aria-label="Profil LinkedIn d'Hervé Nessi">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5V9.5h3V19zM6.5 8.2a1.7 1.7 0 1 1 0-3.4 1.7 1.7 0 0 1 0 3.4zM19 19h-3v-5c0-1.2-.5-2-1.6-2-1 0-1.6.7-1.6 2v5h-3V9.5h3v1.2c.5-.8 1.4-1.4 2.7-1.4 2.1 0 3.5 1.4 3.5 4V19z"/></svg>
+              <span>LinkedIn</span>
+            </a>
+            <a class="profile-hero__back" href="main.html#direction">
+              <span>Retour à la direction</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M7 7h10v10"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ COMBO — KPIs juxtaposés à Parcours/Mission ============ -->
+    <section class="profile-combo" id="parcours">
+      <div class="profile-combo__inner">
+
+        <aside class="profile-combo__kpis">
+          <article class="profile-kpi profile-kpi--text">
+            <h3 class="profile-kpi__text">Collaborateur<br/>depuis 2006</h3>
+          </article>
+          <article class="profile-kpi profile-kpi--outline">
+            <span class="profile-kpi__num">30</span>
+            <p class="profile-kpi__label">Années d'expérience</p>
+          </article>
+        </aside>
+
+    <!-- ============ PARCOURS / MISSION (swap card) ============ -->
+    <div class="profile-switch profile-switch--combo">
+      <div class="profile-switch__inner">
+
+        <header class="profile-switch__head">
+          <p class="profile-switch__label">
+            <span class="dot"></span>
+            <span>En bref</span>
+          </p>
+
+          <div class="profile-switch__tabs" role="tablist" aria-label="Parcours et mission">
+            <span class="profile-switch__pill" aria-hidden="true"></span>
+            <button type="button" class="profile-switch__tab is-active" role="tab" aria-selected="true" data-target="parcours">
+              <span class="profile-switch__tab-label">Parcours</span>
+            </button>
+            <button type="button" class="profile-switch__tab" role="tab" aria-selected="false" data-target="mission">
+              <span class="profile-switch__tab-label">Sa mission</span>
+            </button>
+          </div>
+        </header>
+
+        <div class="profile-switch__stage">
+          <article class="profile-switch__panel is-active" data-panel="parcours" role="tabpanel">
+            <p class="profile-switch__para" data-whisper>
+              Ingénieur télécom de formation, Hervé Nessi a très tôt plongé,
+              par atavisme, dans le monde de la Réassurance et de l'Actuariat.
+              Chez Arundo Re depuis 2017, il met son expertise technique et sa
+              connaissance globale des marchés au service de nos cédantes
+              pour leur apporter un soutien à leur développement, de la
+              protection ou des services appropriés.
+            </p>
+            <p class="profile-switch__para" data-whisper>
+              D'un naturel créatif, il recherche constamment des solutions
+              innovantes pour simplifier les procédures, optimiser notre
+              performance et améliorer le confort des équipes, en utilisant
+              notamment l'intelligence artificielle au service de la
+              décision. En tant que professeur, il s'efforce de transmettre
+              la passion qui l'a animé au cours de ses 30 années d'expérience.
+            </p>
+          </article>
+
+          <article class="profile-switch__panel" data-panel="mission" role="tabpanel" aria-hidden="true">
+            <p class="profile-switch__mission-eyebrow">Sa mission</p>
+            <h2 class="profile-switch__mission-text" data-whisper>
+              Garantir la cohérence et la rentabilité du portefeuille vie et
+              non vie, et veiller au respect du cadre de gestion des risques
+              de la société.
+            </h2>
+          </article>
+        </div>
+
+      </div>
+    </div>
+
+      </div>
+    </section>
+
+    <!-- ============ SES INTERVENTIONS ============ -->
+    <section class="profile-talks">
+      <div class="profile-talks__inner">
+
+        <header class="profile-talks__head">
+          <h2 class="profile-talks__title">Ses interventions</h2>
+          <span class="profile-talks__rule" aria-hidden="true"></span>
+        </header>
+
+        <div class="profile-talks__grid">
+
+          <a class="talk-card" href="https://www.theinsurer.com/viewpoint/back-to-basics/10684.article" target="_blank" rel="noopener">
+            <div class="talk-card__media">
+              <div class="talk-card__logo">
+                <span class="talk-card__logo-bar talk-card__logo-bar--top"></span>
+                <span class="talk-card__logo-the">THE</span>
+                <span class="talk-card__logo-name">INSURER</span>
+                <span class="talk-card__logo-bar talk-card__logo-bar--bottom"></span>
+                <span class="talk-card__logo-tag">Global risk capital intelligence</span>
+              </div>
+            </div>
+            <div class="talk-card__foot">
+              <svg class="talk-card__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="8" y1="13" x2="16" y2="13"/>
+                <line x1="8" y1="17" x2="14" y2="17"/>
+              </svg>
+              <span class="talk-card__label">Retour aux sources&nbsp;!</span>
+            </div>
+          </a>
+
+          <a class="talk-card" href="https://www.theinsurer.com/viewpoint/deadbeat-insurer/12790.article" target="_blank" rel="noopener">
+            <div class="talk-card__media">
+              <div class="talk-card__logo">
+                <span class="talk-card__logo-bar talk-card__logo-bar--top"></span>
+                <span class="talk-card__logo-the">THE</span>
+                <span class="talk-card__logo-name">INSURER</span>
+                <span class="talk-card__logo-bar talk-card__logo-bar--bottom"></span>
+                <span class="talk-card__logo-tag">Global risk capital intelligence</span>
+              </div>
+            </div>
+            <div class="talk-card__foot">
+              <svg class="talk-card__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="8" y1="13" x2="16" y2="13"/>
+                <line x1="8" y1="17" x2="14" y2="17"/>
+              </svg>
+              <span class="talk-card__label">Assureur malhonnête&nbsp;!</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ EXPERTS FINDER ============ -->
+    <section class="experts-finder" id="experts">
+      <div class="experts-finder__inner">
+        <div class="experts-finder__hero">
+          <h2 class="experts-finder__title">
+            Découvrez l'expert<br/>
+            le plus aguerri à votre problématique
+          </h2>
+          <div class="experts-finder__selects">
+            <div class="experts-finder__select-wrap">
+              <select class="experts-finder__select" aria-label="Région">
+                <option>Toutes les régions</option>
+                <option>France</option>
+                <option>Belgique</option>
+                <option>Luxembourg</option>
+                <option>Asie</option>
+                <option>Afrique</option>
+                <option>Amérique latine</option>
+                <option>Monde</option>
+              </select>
+            </div>
+            <span class="experts-finder__sep">Ou</span>
+            <div class="experts-finder__select-wrap">
+              <select class="experts-finder__select" aria-label="Solution">
+                <option>Toutes les solutions</option>
+                <option>Dommages &amp; Responsabilité</option>
+                <option>Vie &amp; Santé</option>
+                <option>Spécialités</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="experts-finder__list">
+          <aside class="experts-finder__aside">
+            <p class="experts-finder__aside-title">Découvrir aussi<br/>le profil de…</p>
+            <span class="experts-finder__aside-rule" aria-hidden="true"></span>
+            <a href="experts.html" class="experts-finder__cta">Découvrir tous nos experts</a>
+          </aside>
+          <div class="experts-finder__cards" role="list">
+            <a class="expert-card" role="listitem" href="elizabeth-adams.html"><img class="expert-card__photo" src="assets/img/Elizabeth%20Adams.jpg" alt="Elizabeth Adams" /><div class="expert-card__overlay"><p class="expert-card__name">Elizabeth Adams</p><p class="expert-card__role">Directrice Souscription<br/>D&amp;R · France, Belgique, Luxembourg</p></div></a>
+            <a class="expert-card" role="listitem" href="francois-cahu.html"><img class="expert-card__photo" src="assets/img/Fran%C3%A7ois%20Cahu%20(1).jpg" alt="François Cahu" /><div class="expert-card__overlay"><p class="expert-card__name">François Cahu</p><p class="expert-card__role">Directeur Souscription<br/>Europe centrale &amp; Nord</p></div></a>
+            <a class="expert-card" role="listitem" href="emmanuel-jacquemin.html"><img class="expert-card__photo" src="assets/img/Emmanuel%20Jacquemin.jpg" alt="Emmanuel Jacquemin" /><div class="expert-card__overlay"><p class="expert-card__name">Emmanuel Jacquemin</p><p class="expert-card__role">Directeur Souscription<br/>Europe du Sud · Pays-Bas · Amérique latine</p></div></a>
+            <a class="expert-card" role="listitem" href="john-conan.html"><img class="expert-card__photo" src="assets/img/John%20Conan%20CA%20(1).jpg" alt="John Conan" /><div class="expert-card__overlay"><p class="expert-card__name">John Conan</p><p class="expert-card__role">Directeur Souscription<br/>Asie &amp; Afrique</p></div></a>
+            <a class="expert-card" role="listitem" href="vaibhavi-mehta.html"><img class="expert-card__photo" src="assets/img/Vaibhavi%20Metha.jpg" alt="Vaibhavi Mehta" /><div class="expert-card__overlay"><p class="expert-card__name">Vaibhavi Mehta</p><p class="expert-card__role">Directrice Souscription<br/>Vie &amp; Santé · Monde</p></div></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer footer--dark">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <img src="assets/img/logo-arundore.png" alt="Arundo Re Paris" class="footer__logo"/>
+        </div>
+
+        <nav class="footer__col" aria-label="Liens entreprise">
+          <a href="#" data-cursor="hover">Nos experts</a>
+          <a href="#" data-cursor="hover">Relations Investisseurs</a>
+          <a href="#" data-cursor="hover">Contact</a>
+          <a href="#" data-cursor="hover">Accessibilité : partiellement conforme</a>
+        </nav>
+
+        <nav class="footer__col" aria-label="Liens contenus">
+          <a href="main.html#decouvrir" data-cursor="hover">Nous découvrir</a>
+          <a href="main.html#solutions" data-cursor="hover">Solutions</a>
+          <a href="presse.html" data-cursor="hover">Presse</a>
+        </nav>
+
+        <div class="footer__newsletter">
+          <p class="footer__newsletter-label">Inscription à notre newsletter :</p>
+          <button type="button" class="footer__newsletter-btn" data-cursor="hover">Je m'inscris</button>
+        </div>
+
+        <div class="footer__contact">
+          <div class="footer__address">
+            <svg class="footer__pin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22s7-7.5 7-13a7 7 0 1 0-14 0c0 5.5 7 13 7 13z"/>
+              <circle cx="12" cy="9" r="2.5"/>
+            </svg>
+            <p>6 rue Favart,<br/>75002 Paris&nbsp;- FRANCE</p>
+          </div>
+          <div class="footer__social">
+            <a href="#" aria-label="YouTube" data-cursor="hover">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 0 0 .5 6.2C0 8 0 12 0 12s0 4 .5 5.8a3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.8.5-5.8.5-5.8s0-4-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn" data-cursor="hover">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5V9.5h3V19zM6.5 8.2a1.7 1.7 0 1 1 0-3.4 1.7 1.7 0 0 1 0 3.4zM19 19h-3v-5c0-1.2-.5-2-1.6-2-1 0-1.6.7-1.6 2v5h-3V9.5h3v1.2c.5-.8 1.4-1.4 2.7-1.4 2.1 0 3.5 1.4 3.5 4V19z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer__big" aria-hidden="true">ARUNDO&nbsp;RE</div>
+
+      <div class="footer__bottom">
+        <span class="footer__legal">
+          <a href="#" data-cursor="hover">Mentions légales</a>
+          <a href="#" data-cursor="hover">Données personnelles</a>
+          <a href="#" data-cursor="hover">Cookies</a>
+        </span>
+        <span>© - Arundo Re 2026 All rights reserved</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ============ LIBS ============ -->
+  <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@barba/core@2.10.3/dist/barba.umd.js"></script>
+
+  <script src="js/main.js?v=37"></script>
+
+</body>
+</html>

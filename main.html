@@ -2,6 +2,9 @@
 <html lang="fr" data-barba="wrapper">
 <head>
   <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Arundo Re — Réassureur global, flexible et résilient. Always around." />
   <title>Arundo Re — Always around</title>
@@ -10,10 +13,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@300;400;500;600;700&family=Pinyon+Script&family=Audiowide&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700;800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Stack+Sans+Notch:wght@200..700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css?v=48" />
+  <link rel="stylesheet" href="css/style.css?v=112" />
 </head>
 
 <body>
+
+  <!-- ============ PAGE TRANSITION CURTAIN ============ -->
+  <div class="page-curtain" id="pageCurtain" aria-hidden="true">
+    <span class="page-curtain__half page-curtain__half--top"></span>
+    <span class="page-curtain__half page-curtain__half--bot"></span>
+    <span class="page-curtain__brand">
+      <span class="page-curtain__line"></span>
+      <span class="page-curtain__brand-text">
+        <span>Arundo</span><span class="page-curtain__brand-re">Re</span>
+      </span>
+    </span>
+  </div>
 
   <!-- ============ INTRO / PRELOADER ============ -->
   <div class="preloader" id="preloader" aria-hidden="true">
@@ -32,18 +47,32 @@
 
   <!-- ============ NAV (sticky) ============ -->
   <header class="nav-sticky is-visible">
-    <a href="/" class="nav__logo" aria-label="Arundo Re">
+    <a href="main.html" class="nav__logo" aria-label="Arundo Re">
       <img src="assets/img/logo-arundore.png" alt="Arundo Re Paris" class="nav__logo-img" />
     </a>
 
     <nav class="nav__links" aria-label="Navigation principale">
-      <a href="#accueil"     class="nav-link"><span class="nav-link__inner"><span>Accueil</span><span aria-hidden="true">Accueil</span></span></a>
-      <a href="#decouvrir"   class="nav-link"><span class="nav-link__inner"><span>Nous découvrir</span><span aria-hidden="true">Nous découvrir</span></span></a>
+      <a href="main.html"     class="nav-link"><span class="nav-link__inner"><span>Accueil</span><span aria-hidden="true">Accueil</span></span></a>
+
+      <div class="nav-item nav-item--has-sub">
+        <a href="#decouvrir" class="nav-link" aria-haspopup="true">
+          <span class="nav-link__inner"><span>Nous découvrir</span><span aria-hidden="true">Nous découvrir</span></span>
+        </a>
+        <div class="nav-sub" role="menu">
+          <div class="nav-sub__inner">
+            <p class="nav-sub__title">Nous découvrir</p>
+            <a href="#decouvrir" class="nav-sub__link" role="menuitem">Arundo Re</a>
+            <a href="#direction" class="nav-sub__link" role="menuitem">Notre gouvernance</a>
+            <a href="#actualites" class="nav-sub__link" role="menuitem">Nos actualités</a>
+          </div>
+        </div>
+      </div>
+
       <a href="#finances"    class="nav-link"><span class="nav-link__inner"><span>Informations financières</span><span aria-hidden="true">Informations financières</span></span></a>
       <a href="#solutions"   class="nav-link"><span class="nav-link__inner"><span>Solutions</span><span aria-hidden="true">Solutions</span></span></a>
       <a href="#engagements" class="nav-link"><span class="nav-link__inner"><span>Nos engagements</span><span aria-hidden="true">Nos engagements</span></span></a>
       <a href="#carrieres"   class="nav-link"><span class="nav-link__inner"><span>Carrières</span><span aria-hidden="true">Carrières</span></span></a>
-      <a href="#presse"      class="nav-link"><span class="nav-link__inner"><span>Presse</span><span aria-hidden="true">Presse</span></span></a>
+      <a href="presse.html"      class="nav-link"><span class="nav-link__inner"><span>Presse</span><span aria-hidden="true">Presse</span></span></a>
     </nav>
 
     <div class="nav__meta">
@@ -86,7 +115,7 @@
           <li><a href="#solutions" class="side-menu__primary-link">Solutions</a></li>
           <li><a href="#engagements" class="side-menu__primary-link">Nos engagements</a></li>
           <li><a href="#carrieres" class="side-menu__primary-link">Carrières</a></li>
-          <li><a href="#presse" class="side-menu__primary-link">Presse</a></li>
+          <li><a href="presse.html" class="side-menu__primary-link">Presse</a></li>
         </ul>
       </nav>
 
@@ -181,9 +210,8 @@
       </a>
       <span class="hero__brand-line">
         <span class="hero__brand-word-wrap">
-          <span class="hero__brand-word">Arundo</span>
+          <span class="hero__brand-word">Arundo<span class="hero__brand-word--accent"> Re</span></span>
         </span>
-        <span class="hero__brand-word hero__brand-word--accent">Re</span>
       </span>
       <span class="hero__brand-subtitle" aria-label="Qui sommes nous">
         <span class="hero__brand-subtitle-part hero__brand-subtitle-part--left">
@@ -197,19 +225,17 @@
 
     <!-- ============ ABOUT CARD ============ -->
     <section class="about" id="about">
-      <div class="about__card">
-        <span class="about__dot about__dot--tl" aria-hidden="true"></span>
-        <span class="about__dot about__dot--tr" aria-hidden="true"></span>
-        <span class="about__dot about__dot--bl" aria-hidden="true"></span>
-        <span class="about__dot about__dot--br" aria-hidden="true"></span>
-        <p class="about__text">
-          Arundo Re est un réassureur de taille moyenne, avec une présence
-          de longue date en France et à l'international, et désormais dans
-          <strong>103 pays dans le monde</strong>, qui opère dans les branches
-          traditionnelles dommages aux biens et responsabilité civile, vie
-          et santé, ainsi que dans certaines branches de spécialités
-          (crédit, marine, aviation, spatial, agro).
-        </p>
+      <div class="about__shell">
+        <div class="about__card">
+          <p class="about__text">
+            Arundo Re est un réassureur de taille moyenne, avec une présence
+            de longue date en France et à l'international, et désormais dans
+            <strong>103 pays dans le monde</strong>, qui opère dans les branches
+            traditionnelles dommages aux biens et responsabilité civile, vie
+            et santé, ainsi que dans certaines branches de spécialités
+            (crédit, marine, aviation, spatial, agro).
+          </p>
+        </div>
       </div>
     </section>
 
@@ -261,16 +287,18 @@
     </section>
 
     <!-- ============ VIDEO ============ -->
-    <section class="video-section" id="video">
-      <div class="video-player" id="videoPlayer" data-yt-id="4jONC14DK_A" data-yt-start="12">
-        <div class="video-player__embed" id="videoEmbed"></div>
-        <img class="video-player__poster" id="videoPoster" src="https://i.ytimg.com/vi/4jONC14DK_A/maxresdefault.jpg" alt="Arundo Re — vidéo de présentation" />
-        <button type="button" class="video-player__play" id="videoPlayBtn" aria-label="Lire la vidéo">
-          <svg viewBox="0 0 24 24" width="32" height="32"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>
-        </button>
-        <button type="button" class="video-player__close" id="videoCloseBtn" aria-label="Fermer la vidéo">
-          <svg viewBox="0 0 24 24" width="20" height="20"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>
-        </button>
+    <section class="video-section video-section--scroll" id="video">
+      <div class="video-section__sticky">
+        <div class="video-player" id="videoPlayer" data-yt-id="4jONC14DK_A" data-yt-start="12">
+          <div class="video-player__embed" id="videoEmbed"></div>
+          <img class="video-player__poster" id="videoPoster" src="https://i.ytimg.com/vi/4jONC14DK_A/maxresdefault.jpg" alt="Arundo Re — vidéo de présentation" />
+          <button type="button" class="video-player__play" id="videoPlayBtn" aria-label="Lire la vidéo">
+            <svg viewBox="0 0 24 24" width="32" height="32"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>
+          </button>
+          <button type="button" class="video-player__close" id="videoCloseBtn" aria-label="Fermer la vidéo">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg>
+          </button>
+        </div>
       </div>
     </section>
 
@@ -294,7 +322,7 @@
               <p class="story-person__role">Directeur Général de la Souscription<br/><span>Vie &amp; Santé, Dommages &amp; Responsabilité, Spécialités · Monde</span></p>
               <h2 class="story-person__name">Hervé Nessi</h2>
               <p class="story-person__desc">Hervé pilote la stratégie de souscription du groupe sur l'ensemble des branches, à l'échelle mondiale.</p>
-              <a href="#" class="story-person__cta" aria-label="Découvrir Hervé Nessi">
+              <a href="herve-nessi.html" class="story-person__cta" aria-label="Découvrir Hervé Nessi">
                 <span class="story-person__cta-label">Hervé Nessi</span>
                 <span class="story-person__cta-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
@@ -315,7 +343,7 @@
               <p class="story-person__role">Directrice de la Souscription<br/><span>Vie &amp; Santé · Monde</span></p>
               <h2 class="story-person__name">Vaibhavi Mehta</h2>
               <p class="story-person__desc">Vaibhavi dirige la souscription Vie &amp; Santé, en France et à l'international.</p>
-              <a href="#" class="story-person__cta" aria-label="Découvrir Vaibhavi Mehta">
+              <a href="vaibhavi-mehta.html" class="story-person__cta" aria-label="Découvrir Vaibhavi Mehta">
                 <span class="story-person__cta-label">Vaibhavi Mehta</span>
                 <span class="story-person__cta-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
@@ -336,7 +364,7 @@
               <p class="story-person__role">Directrice de la Souscription<br/><span>Dommages &amp; Responsabilité · France, Belgique &amp; Luxembourg</span></p>
               <h2 class="story-person__name">Elizabeth Adams</h2>
               <p class="story-person__desc">Elizabeth supervise la souscription dommages aux biens et responsabilité civile pour la zone France &amp; Benelux.</p>
-              <a href="#" class="story-person__cta" aria-label="Découvrir Elizabeth Adams">
+              <a href="elizabeth-adams.html" class="story-person__cta" aria-label="Découvrir Elizabeth Adams">
                 <span class="story-person__cta-label">Elizabeth Adams</span>
                 <span class="story-person__cta-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
@@ -357,7 +385,7 @@
               <p class="story-person__role">Directeur de la Souscription<br/><span>Dommages &amp; Responsabilité · Europe centrale et du nord</span></p>
               <h2 class="story-person__name">François Cahu</h2>
               <p class="story-person__desc">François pilote la souscription P&amp;C en Europe centrale et du nord, en lien étroit avec nos cédantes régionales.</p>
-              <a href="#" class="story-person__cta" aria-label="Découvrir François Cahu">
+              <a href="francois-cahu.html" class="story-person__cta" aria-label="Découvrir François Cahu">
                 <span class="story-person__cta-label">François Cahu</span>
                 <span class="story-person__cta-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
@@ -378,7 +406,7 @@
               <p class="story-person__role">Directeur de la Souscription<br/><span>Dommages &amp; Responsabilité · Europe du sud, Pays-Bas &amp; Amérique latine</span></p>
               <h2 class="story-person__name">Emmanuel Jacquemin</h2>
               <p class="story-person__desc">Emmanuel couvre l'Europe du sud, les Pays-Bas et l'Amérique latine sur le marché P&amp;C.</p>
-              <a href="#" class="story-person__cta" aria-label="Découvrir Emmanuel Jacquemin">
+              <a href="emmanuel-jacquemin.html" class="story-person__cta" aria-label="Découvrir Emmanuel Jacquemin">
                 <span class="story-person__cta-label">Emmanuel Jacquemin</span>
                 <span class="story-person__cta-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
@@ -399,10 +427,17 @@
               <p class="story-person__role">Directeur de la Souscription · Dommages &amp; Responsabilité<br/><span>Asie &amp; Afrique · Directeur Général de la succursale de Labuan</span></p>
               <h2 class="story-person__name">John Conan</h2>
               <p class="story-person__desc">John dirige la souscription P&amp;C en Asie et en Afrique, et représente Arundo Re sur la place de Labuan.</p>
-              <a href="#" class="story-person__cta" aria-label="Découvrir John Conan">
+              <a href="john-conan.html" class="story-person__cta" aria-label="Découvrir John Conan">
                 <span class="story-person__cta-label">John Conan</span>
                 <span class="story-person__cta-icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                </span>
+              </a>
+
+              <a href="experts.html" class="story-section__discover" aria-label="Découvrir tous nos experts">
+                <span class="story-section__discover-label">Découvrir nos experts</span>
+                <span class="story-section__discover-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                 </span>
               </a>
             </div>
@@ -524,6 +559,7 @@
       </div>
     </section>
 
+
     <footer class="footer footer--dark" id="carrieres">
       <div class="footer__top">
         <div class="footer__brand">
@@ -587,6 +623,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/@barba/core@2.10.3/dist/barba.umd.js"></script>
 
-  <script src="js/main.js?v=17"></script>
+  <script src="js/main.js?v=37"></script>
 </body>
 </html>

@@ -120,6 +120,7 @@ try {
       syncTouch: false,
       normalizeWheel: true,
     });
+    window.__lenis = lenis;
     if (typeof ScrollTrigger !== "undefined") {
       lenis.on("scroll", ScrollTrigger.update);
     }
@@ -506,8 +507,12 @@ function initTilt() {
 function initStoryIntroReveal() {
   if (typeof ScrollTrigger === "undefined") return;
   const intro = document.querySelector(".story-intro");
-  if (!intro) return;
   const nav = document.querySelector(".nav-sticky");
+  // pas de story-intro (profile pages): kill is-gold résiduel + return
+  if (!intro) {
+    if (nav) nav.classList.remove("is-gold");
+    return;
+  }
 
   const goldOn = () => nav && nav.classList.add("is-gold");
   const goldOff = () => nav && nav.classList.remove("is-gold");
@@ -536,6 +541,44 @@ function initStoryIntroReveal() {
 }
 
 /* ---------- STORY SCROLL — sticky + rotation + scroll-jack (1 scroll = 1 section) ---------- */
+/* ---------- VIDEO SCROLL REVEAL — scale + radius scrubbed on scroll ---------- */
+function initVideoScroll() {
+  if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
+  const section = document.querySelector(".video-section--scroll");
+  const player  = section && section.querySelector(".video-player");
+  if (!section || !player) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (player.dataset.scrollBound === "1") return;
+  player.dataset.scrollBound = "1";
+
+  const isMobile = window.matchMedia("(max-width: 900px)").matches;
+  const fromRotX   = isMobile ? 3 : 3;
+  const fromScale  = isMobile ? 0.96 : 0.95;
+  const fromRadius = isMobile ? 20 : 56;
+  const persp      = isMobile ? 1100 : 1400;
+
+  gsap.set(player, {
+    transformPerspective: persp,
+    rotateX: fromRotX,
+    scale: fromScale,
+    transformOrigin: "center top",
+    borderRadius: fromRadius + "px",
+  });
+
+  gsap.to(player, {
+    rotateX: 0,
+    scale: 1,
+    ease: "none",
+    scrollTrigger: {
+      trigger: section,
+      start: "top bottom",
+      end:   "top top",
+      scrub: 1,
+      invalidateOnRefresh: true,
+    },
+  });
+}
+
 function initStoryScroll() {
   if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
   const sections = gsap.utils.toArray("[data-story]");
@@ -560,6 +603,9 @@ function initStoryScroll() {
           start: "top bottom",
           end: "top top",
           scrub: 1,
+          invalidateOnRefresh: true,
+          onLeave:     (self) => { gsap.set(inner, { rotation: 0 }); },
+          onEnterBack: (self) => { if (self.progress >= 1) gsap.set(inner, { rotation: 0 }); },
         },
       });
     }
@@ -567,180 +613,192 @@ function initStoryScroll() {
 
   ScrollTrigger.refresh();
 
-  if (reduced) return;
+  // refresh after images load (layout shift fix — cards stuck mid-rotation)
+  const imgs = container.querySelectorAll("img");
+  let pending = 0;
+  imgs.forEach((img) => {
+    if (!img.complete) {
+      pending++;
+      img.addEventListener("load",  () => { if (--pending === 0) ScrollTrigger.refresh(); }, { once: true });
+      img.addEventListener("error", () => { if (--pending === 0) ScrollTrigger.refresh(); }, { once: true });
+    }
+  });
+  window.addEventListener("load", () => ScrollTrigger.refresh(), { once: true });
 
-  // scroll-jacking disabled — native scroll
-  return;
-
-  /* ---- scroll-jacking ---- */
-  let currentIndex = 0;
-  let isAnimating = false;
-  let inContainer = false;
-  let lastInputTime = 0;
-  const COOLDOWN_MS = 900;
-
-  ScrollTrigger.create({
-    trigger: container,
-    start: "top top",
-    end: "bottom bottom",
-    onEnter:     () => { inContainer = true; updateCurrentIndex(); },
-    onEnterBack: () => { inContainer = true; updateCurrentIndex(); },
-    onLeave:     () => { inContainer = false; },
-    onLeaveBack: () => { inContainer = false; },
+  // debounced resize refresh
+  let _rsST;
+  window.addEventListener("resize", () => {
+    clearTimeout(_rsST);
+    _rsST = setTimeout(() => ScrollTrigger.refresh(), 150);
   });
 
-  function updateCurrentIndex() {
-    let best = 0, bestDist = Infinity;
-    sections.forEach((sec, i) => {
-      const d = Math.abs(sec.getBoundingClientRect().top);
-      if (d < bestDist) { bestDist = d; best = i; }
-    });
-    currentIndex = best;
-  }
-
-  function scrollToIndex(idx) {
-    if (idx < 0 || idx >= sections.length || isAnimating) return;
-    isAnimating = true;
-    currentIndex = idx;
-    const targetY = window.scrollY + sections[idx].getBoundingClientRect().top;
-    const done = () => { isAnimating = false; };
-
-    if (typeof lenis !== "undefined" && lenis && typeof lenis.scrollTo === "function") {
-      lenis.scrollTo(targetY, {
-        duration: 0.85,
-        easing: (t) => 1 - Math.pow(1 - t, 3),
-        onComplete: done,
-      });
-    } else {
-      window.scrollTo({ top: targetY, behavior: "smooth" });
-      setTimeout(done, 850);
-    }
-  }
-
-  function onWheel(e) {
-    if (!inContainer) return;
-    const now = performance.now();
-
-    // pendant l'anim ou cooldown → bloque tout scroll
-    if (isAnimating || now - lastInputTime < COOLDOWN_MS) {
-      e.preventDefault();
-      return;
-    }
-
-    if (Math.abs(e.deltaY) < 4) return;
-    const dir = e.deltaY > 0 ? 1 : -1;
-    const nextIdx = currentIndex + dir;
-
-    // si on est aux limites, laisser le scroll normal sortir du conteneur
-    if (nextIdx < 0 || nextIdx >= sections.length) return;
-
-    e.preventDefault();
-    lastInputTime = now;
-    scrollToIndex(nextIdx);
-  }
-
-  /* touch (mobile) — swipe vertical = 1 section */
-  let touchStartY = null;
-  function onTouchStart(e) {
-    if (!inContainer || isAnimating) return;
-    touchStartY = e.touches[0].clientY;
-  }
-  function onTouchEnd(e) {
-    if (!inContainer || touchStartY === null) return;
-    const now = performance.now();
-    if (isAnimating || now - lastInputTime < COOLDOWN_MS) {
-      touchStartY = null;
-      return;
-    }
-    const dy = touchStartY - (e.changedTouches[0].clientY);
-    touchStartY = null;
-    if (Math.abs(dy) < 30) return;
-    const dir = dy > 0 ? 1 : -1;
-    const nextIdx = currentIndex + dir;
-    if (nextIdx < 0 || nextIdx >= sections.length) return;
-    lastInputTime = now;
-    scrollToIndex(nextIdx);
-  }
-
-  /* clavier — flèches / espace / pageDown */
-  function onKey(e) {
-    if (!inContainer || isAnimating) return;
-    const now = performance.now();
-    if (now - lastInputTime < COOLDOWN_MS) return;
-    let dir = 0;
-    if (["ArrowDown", "PageDown", " ", "Spacebar"].includes(e.key)) dir = 1;
-    else if (["ArrowUp", "PageUp"].includes(e.key)) dir = -1;
-    if (!dir) return;
-    const nextIdx = currentIndex + dir;
-    if (nextIdx < 0 || nextIdx >= sections.length) return;
-    e.preventDefault();
-    lastInputTime = now;
-    scrollToIndex(nextIdx);
-  }
-
-  window.addEventListener("wheel", onWheel, { passive: false });
-  window.addEventListener("touchstart", onTouchStart, { passive: true });
-  window.addEventListener("touchend", onTouchEnd, { passive: true });
-  window.addEventListener("keydown", onKey);
 }
 
-/* ---------- TEXT SCRAMBLE (hero subtitle "Qui sommes nous ?") ---------- */
-function scrambleHeroSubtitle() {
-  const brand = document.querySelector(".hero__brand");
-  const targets = document.querySelectorAll(".hero__brand-subtitle-text");
-  if (!brand || !targets.length) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+/* ---------- PROFILE SWITCH (tabs + whisper) — used on profile pages ---------- */
+function initProfileSwitch() {
+  const root = document.querySelector(".profile-switch");
+  if (!root) return;
+  const tabs = root.querySelectorAll(".profile-switch__tab");
+  const pill = root.querySelector(".profile-switch__pill");
+  const stage = root.querySelector(".profile-switch__stage");
+  const panels = root.querySelectorAll(".profile-switch__panel");
+  if (!tabs.length || !pill || !stage) return;
 
-  const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?@#$%&*";
-  const duration = 0.9;
-  const speed = 0.04;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const hasGsap = typeof gsap !== "undefined";
+  const WHISPER_DEFAULT = { delay: 35, duration: 0.5, x: -55, y: 20, blur: 14, ease: "power3.out" };
+  const WHISPER_OVERRIDES = { parcours: { delay: 12, duration: 0.4 } };
+  function whisperConf(panel) { return Object.assign({}, WHISPER_DEFAULT, WHISPER_OVERRIDES[panel.dataset.panel] || {}); }
 
-  const scrambleEl = (el) => {
-    const text = el.textContent;
-    const totalSteps = Math.ceil(duration / speed);
-    let step = 0;
+  root.querySelectorAll("[data-whisper]").forEach((el) => {
+    if (el.dataset.whisperInit === "1") return;
+    const raw = el.textContent.replace(/\s+/g, " ").trim();
+    el.dataset.original = raw;
+    el.innerHTML = raw.split(" ").map((w) => `<span class="whisper-word" data-word>${w}</span>`).join(" ");
+    el.dataset.whisperInit = "1";
+  });
 
-    const interval = setInterval(() => {
-      const progress = step / totalSteps;
-      let out = "";
-      for (let i = 0; i < text.length; i++) {
-        const ch = text[i];
-        if (ch === " ") { out += " "; continue; }
-        out += progress * text.length > i
-          ? ch
-          : charset[Math.floor(Math.random() * charset.length)];
-      }
-      el.textContent = out;
-      step++;
-      if (step > totalSteps) {
-        clearInterval(interval);
-        el.textContent = text;
-      }
-    }, speed * 1000);
-  };
+  function whisperPanel(panel) {
+    const words = panel.querySelectorAll("[data-word]");
+    if (!words.length) return;
+    if (reduceMotion || !hasGsap) {
+      words.forEach((w) => { w.style.opacity = 1; w.style.transform = "none"; w.style.filter = "none"; });
+      return;
+    }
+    const conf = whisperConf(panel);
+    gsap.killTweensOf(words);
+    gsap.set(words, { opacity: 0, x: conf.x, y: conf.y, filter: `blur(${conf.blur}px)` });
+    gsap.to(words, {
+      opacity: 1, x: 0, y: 0, filter: "blur(0px)",
+      duration: conf.duration, ease: conf.ease, stagger: conf.delay / 1000,
+      onComplete() { setStageHeight(panel); },
+    });
+  }
+  function placePill(tab) {
+    const r = tab.getBoundingClientRect();
+    const w = tab.parentElement.getBoundingClientRect();
+    pill.style.width = r.width + "px";
+    pill.style.transform = `translateX(${r.left - w.left - 5}px)`;
+  }
+  function setStageHeight(panel) { stage.style.height = panel.scrollHeight + "px"; }
 
-  let triggered = false;
-  const run = () => {
-    if (triggered) return;
-    triggered = true;
-    // attend un poil que la révélation CSS (width 0 → auto) finisse
-    setTimeout(() => targets.forEach(scrambleEl), 350);
-  };
-
-  // si la classe est déjà là, déclenche direct
-  if (brand.classList.contains("is-revealed")) {
-    run();
-    return;
+  function activate(target) {
+    const nt = root.querySelector(`.profile-switch__tab[data-target="${target}"]`);
+    const np = root.querySelector(`.profile-switch__panel[data-panel="${target}"]`);
+    if (!nt || !np) return;
+    tabs.forEach((t) => {
+      const on = t === nt;
+      t.classList.toggle("is-active", on);
+      t.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    panels.forEach((p) => {
+      const on = p === np;
+      p.classList.toggle("is-active", on);
+      p.setAttribute("aria-hidden", on ? "false" : "true");
+    });
+    placePill(nt); setStageHeight(np); whisperPanel(np);
   }
 
-  // sinon observe l'ajout de la classe
-  const observer = new MutationObserver(() => {
+  tabs.forEach((tab) => {
+    if (tab.dataset.bound === "1") return;
+    tab.dataset.bound = "1";
+    tab.addEventListener("click", () => activate(tab.dataset.target));
+  });
+
+  const it = root.querySelector(".profile-switch__tab.is-active") || tabs[0];
+  const ip = root.querySelector(".profile-switch__panel.is-active") || panels[0];
+  requestAnimationFrame(() => { placePill(it); setStageHeight(ip); whisperPanel(ip); });
+
+  if (!initProfileSwitch._resizeBound) {
+    initProfileSwitch._resizeBound = true;
+    let rs;
+    window.addEventListener("resize", () => {
+      clearTimeout(rs);
+      rs = setTimeout(() => {
+        const r = document.querySelector(".profile-switch");
+        if (!r) return;
+        const t = r.querySelector(".profile-switch__tab.is-active");
+        const p = r.querySelector(".profile-switch__panel.is-active");
+        if (t) {
+          const rect = t.getBoundingClientRect();
+          const wrap = t.parentElement.getBoundingClientRect();
+          const pl = r.querySelector(".profile-switch__pill");
+          if (pl) { pl.style.width = rect.width + "px"; pl.style.transform = `translateX(${rect.left - wrap.left - 5}px)`; }
+        }
+        if (p) {
+          const st = r.querySelector(".profile-switch__stage");
+          if (st) st.style.height = p.scrollHeight + "px";
+        }
+      }, 120);
+    });
+  }
+}
+
+/* ---------- ANIMATION RESTART — re-trigger CSS keyframes after Barba nav ---------- */
+function restartCssAnimations() {
+  const selectors = [
+    ".profile-switch__inner",
+    ".profile-combo__kpis .profile-kpi--text",
+    ".profile-combo__kpis .profile-kpi--outline",
+    ".profile-combo__kpis .profile-kpi--quote",
+  ];
+  selectors.forEach((sel) => {
+    document.querySelectorAll(sel).forEach((el) => {
+      el.style.animation = "none";
+      // force reflow so animation restart actually fires
+      void el.offsetWidth;
+      el.style.animation = "";
+    });
+  });
+}
+
+/* ---------- HERO BRAND MASK OPEN — retire overflow:hidden dès que chaque slide-up finit ---------- */
+function initHeroMaskOpen() {
+  const brand = document.querySelector(".hero__brand");
+  if (!brand) return;
+  const wraps = brand.querySelectorAll(".hero__brand-word-wrap, .hero__brand-subtitle-part");
+  if (!wraps.length) return;
+
+  const closeMasks = () => wraps.forEach((w) => w.classList.remove("is-mask-open"));
+
+  // ouvre masque de chaque wrap quand SON inner finit son transform
+  const armPerWrap = () => {
+    wraps.forEach((w) => {
+      const inner = w.querySelector(".hero__brand-word, .hero__brand-subtitle-text");
+      if (!inner || inner.dataset.maskListener === "1") return;
+      inner.dataset.maskListener = "1";
+      inner.addEventListener("transitionend", (e) => {
+        if (e.propertyName === "transform") w.classList.add("is-mask-open");
+      });
+    });
+  };
+
+  // si déjà révélé (sans transition), ouvre direct
+  const openImmediate = () => wraps.forEach((w) => w.classList.add("is-mask-open"));
+
+  armPerWrap();
+
+  if (brand.classList.contains("is-revealed")) {
+    // listener catchera la fin de transition; fallback timer si pas de transition
+    setTimeout(() => {
+      wraps.forEach((w) => {
+        if (!w.classList.contains("is-mask-open")) w.classList.add("is-mask-open");
+      });
+    }, 1700);
+  }
+
+  if (brand.dataset.maskObs === "1") return;
+  brand.dataset.maskObs = "1";
+  const obs = new MutationObserver(() => {
     if (brand.classList.contains("is-revealed")) {
-      observer.disconnect();
-      run();
+      armPerWrap();
+      // fallback safety
+      setTimeout(() => wraps.forEach((w) => w.classList.add("is-mask-open")), 1700);
+    } else {
+      closeMasks();
     }
   });
-  observer.observe(brand, { attributes: true, attributeFilter: ["class"] });
+  obs.observe(brand, { attributes: true, attributeFilter: ["class"] });
 }
 
 /* ---------- METRIC COUNTERS ---------- */
@@ -814,6 +872,19 @@ function stickyNav() {
     nav.style.transform = "none";
   }
 
+  const isProfile = document.body.classList.contains("page-profile");
+
+  if (isProfile) {
+    // profile pages: nav state fixe (stuck), pas de toggle scroll, reste vert
+    nav.classList.add("is-stuck");
+    nav.classList.remove("is-gold");
+    cleanupNavFallback = () => {
+      nav.classList.remove("is-stuck");
+    };
+    return;
+  }
+
+  // main page: toggle is-stuck on scroll
   const STUCK_THRESHOLD = 120;
   const onScroll = () => {
     const y = window.scrollY || window.pageYOffset || 0;
@@ -855,32 +926,87 @@ function arrivalNudge(delay = 0) {
 }
 
 /* ---------- INIT EVERYTHING ON A PAGE LOAD ---------- */
+let __pageBooted = false;
+
+/* force état final sur tous les éléments de reveal — utilisé sur nav Barba */
+function forceAllReveals() {
+  if (typeof gsap === "undefined") return;
+
+  /* sélecteurs des gsap.from() de sectionReveals */
+  const fromTargets = [
+    ".intro__title", ".solutions__title", ".leadership__title", ".commit__title", ".cta__title",
+    ".intro__label", ".metrics__label", ".solutions__label", ".leadership__label", ".commit__label",
+    ".intro__body", ".leadership__body", ".commit__card",
+    ".sol",
+  ].join(",");
+  const fromEls = document.querySelectorAll(fromTargets);
+  if (fromEls.length) gsap.set(fromEls, { y: 0, x: 0, opacity: 1, clearProps: "transform,opacity" });
+
+  /* class-based reveals: force `is-revealed` */
+  document.querySelectorAll(
+    ".about, .values, .metrics__title, .kpi, .story-intro, .story-section"
+  ).forEach((el) => el.classList.add("is-revealed"));
+
+  /* hero brand: si présent (page home), révèle direct */
+  const brand = document.querySelector(".hero__brand");
+  if (brand) brand.classList.add("is-revealed");
+}
+
 async function initPage() {
+  /* kill stale ScrollTriggers from previous page (Barba nav fix) */
+  if (typeof ScrollTrigger !== "undefined") {
+    ScrollTrigger.getAll().forEach((st) => {
+      try { st.kill(true); } catch (e) {}
+    });
+  }
+  /* clear stuck transforms on story-inner from previous page */
+  if (typeof gsap !== "undefined") {
+    document.querySelectorAll(".story-inner").forEach((el) => {
+      try { gsap.set(el, { clearProps: "transform,rotation" }); } catch (e) {}
+    });
+  }
+
   stickyNav();
   sectionReveals();
-  scrambleHeroSubtitle();
+  initHeroMaskOpen();
   counters();
   imageParallax();
   initTilt();
   initVideoPlayer();
   initStoryIntroReveal();
   initStoryScroll();
-  if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
+  initVideoScroll();
+  initProfileSwitch();
+  restartCssAnimations();
 
-  try {
-    await runIntro();
-  } catch (err) {
-    console.error("[arundore] Intro failed:", err);
+  if (!__pageBooted) {
+    /* premier chargement: preloader + reveals scroll-driven normaux */
+    if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
+
+    try {
+      await runIntro();
+    } catch (err) {
+      console.error("[arundore] Intro failed:", err);
+      const intro = document.getElementById("preloader");
+      if (intro) intro.remove();
+      unlockScroll();
+    }
+
+    heroIntro();
+    if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
+    arrivalNudge(420);
+
+    __pageBooted = true;
+  } else {
+    /* nav Barba: tout final-state direct, zéro re-anim sous le rideau */
     const intro = document.getElementById("preloader");
     if (intro) intro.remove();
     unlockScroll();
+    forceAllReveals();
+    heroIntro();
+    if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
   }
 
-  heroIntro();
-  if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
-  arrivalNudge(420);
-
-  // ensure ScrollTrigger positions stay correct across viewports / load events
   setupResponsiveRefresh();
 }
 
@@ -927,28 +1053,156 @@ function setupResponsiveRefresh() {
   window.addEventListener("orientationchange", () => setTimeout(refresh, 250));
 }
 
-/* ---------- BARBA: page transitions (ready for multi-page) ---------- */
+/* ---------- BARBA: page transitions (curtain sweep, prefetch & full warm) ---------- */
 function bootstrap() {
   if (typeof barba !== "undefined" && typeof gsap !== "undefined") {
+
+    const getCurtain = () => ({
+      top:   document.querySelector(".page-curtain__half--top"),
+      bot:   document.querySelector(".page-curtain__half--bot"),
+      brand: document.querySelector(".page-curtain__brand"),
+      line:  document.querySelector(".page-curtain__line"),
+    });
+
+    /* prefetch sur hover: HTML déjà en cache au clic */
+    const prefetched = new Set();
+    function prefetch(href) {
+      if (!href || prefetched.has(href)) return;
+      prefetched.add(href);
+      const link = document.createElement("link");
+      link.rel = "prefetch";
+      link.href = href;
+      link.as = "document";
+      document.head.appendChild(link);
+      fetch(href, { credentials: "same-origin" }).catch(() => {});
+    }
+    document.addEventListener("mouseover", (e) => {
+      const a = e.target.closest('a[href]:not([target="_blank"])');
+      if (!a) return;
+      const url = new URL(a.href, location.href);
+      if (url.origin !== location.origin) return;
+      if (url.pathname === location.pathname) return;
+      prefetch(url.pathname);
+    }, { passive: true });
+
+    /* attend que toutes les images critiques du nouveau container soient décodées */
+    function warmContainer(container) {
+      const imgs = container.querySelectorAll("img");
+      const promises = [];
+      imgs.forEach((img) => {
+        if (img.complete && img.naturalWidth) return;
+        if (img.decode) {
+          promises.push(img.decode().catch(() => {}));
+        } else {
+          promises.push(new Promise((res) => {
+            img.addEventListener("load", res, { once: true });
+            img.addEventListener("error", res, { once: true });
+          }));
+        }
+      });
+      /* fail-safe: 600ms max */
+      return Promise.race([
+        Promise.all(promises),
+        new Promise((res) => setTimeout(res, 600)),
+      ]);
+    }
+
     barba.init({
+      preventRunning: true,
       transitions: [
         {
-          name: "fade",
-          leave({ current }) {
-            return gsap.to(current.container, {
-              opacity: 0, duration: 0.5, ease: "expo.in",
-            });
+          name: "curtain-sweep",
+          sync: false,
+
+          before() {
+            if (window.__lenis && window.__lenis.stop) window.__lenis.stop();
           },
-          enter({ next }) {
+          after() {
+            if (window.__lenis && window.__lenis.start) window.__lenis.start();
+          },
+
+          leave({ current }) {
+            const { top, bot, brand, line } = getCurtain();
+            const tl = gsap.timeline({ defaults: { ease: "power3.inOut" } });
+
+            /* container fade rapide */
+            tl.to(current.container, {
+              opacity: 0, duration: 0.25, ease: "power2.in",
+            }, 0);
+
+            /* demi-écrans se rencontrent au centre */
+            tl.set([top, bot], { scaleY: 0 }, 0);
+            tl.set(brand, { opacity: 0 }, 0);
+            tl.set(line, { width: 0 }, 0);
+
+            tl.to([top, bot], { scaleY: 1, duration: 0.45 }, 0);
+
+            /* brand + ligne dorée fade-in pendant rideau plein */
+            tl.to(brand, { opacity: 1, duration: 0.22, ease: "power2.out" }, 0.28);
+            tl.to(line, { width: 120, duration: 0.35, ease: "power3.out" }, 0.28);
+
+            return tl;
+          },
+
+          /* beforeEnter async: init + warm-up images AVANT que rideau s'ouvre */
+          async beforeEnter({ next }) {
             window.scrollTo(0, 0);
-            return gsap.from(next.container, {
-              opacity: 0, duration: 0.6, ease: "expo.out",
-            });
+            /* page prête en DOM: init complet */
+            initPage();
+            if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
+            /* attend images visibles + une frame pour layout */
+            await warmContainer(next.container);
+            await new Promise(requestAnimationFrame);
+            if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
+          },
+
+          /* enter: rideau s'ouvre sur page déjà prête */
+          enter({ next }) {
+            const { top, bot, brand, line } = getCurtain();
+            const tl = gsap.timeline({ defaults: { ease: "power3.inOut" } });
+
+            /* container visible direct */
+            gsap.set(next.container, { opacity: 1, y: 0 });
+
+            /* brand sort vite */
+            tl.to(line, { width: 0, duration: 0.2, ease: "power3.in" }, 0);
+            tl.to(brand, { opacity: 0, duration: 0.18, ease: "power2.in" }, 0);
+
+            /* demi-écrans se rétractent */
+            tl.to([top, bot], { scaleY: 0, duration: 0.5 }, 0.05);
+
+            return tl;
           },
         },
       ],
       views: [
-        { namespace: "home", afterEnter() { initPage(); } },
+        {
+          namespace: "home",
+          beforeEnter() {
+            document.body.classList.remove("page-profile", "page-experts", "page-presse");
+          },
+        },
+        {
+          namespace: "profile",
+          beforeEnter() {
+            document.body.classList.add("page-profile");
+            document.body.classList.remove("page-experts", "page-presse");
+          },
+        },
+        {
+          namespace: "experts",
+          beforeEnter() {
+            document.body.classList.add("page-profile", "page-experts");
+            document.body.classList.remove("page-presse");
+          },
+        },
+        {
+          namespace: "presse",
+          beforeEnter() {
+            document.body.classList.add("page-profile", "page-presse");
+            document.body.classList.remove("page-experts");
+          },
+        },
       ],
     });
   }
