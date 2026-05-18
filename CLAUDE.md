@@ -4,11 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Static single-page website for **Arundo Re** — a Paris-based reinsurer (slogan "Always around"). French-language content. No build system, no package manager, no tests — pure HTML/CSS/JS served as files.
+Static multi-page website for **Arundo Re** — Paris-based reinsurer (slogan "Always around"). French-language content. No build system, no package manager, no tests — pure HTML/CSS/JS served as files.
 
 ## Running locally
 
-There is no build step. Open `index.html` directly, or serve the root with any static server:
+No build step. Serve root with any static server:
 
 ```powershell
 # Python
@@ -18,86 +18,217 @@ python -m http.server 8000
 npx serve .
 ```
 
-A static server is preferred over `file://` because the `<video>` asset and some browser features (Barba's history API, CORS) behave better over HTTP.
+Static server preferred over `file://` because `<video>`, Barba history API, CORS behave better over HTTP.
+
+## Pages
+
+| File | Purpose | Barba namespace | Body class |
+|------|---------|-----------------|------------|
+| `main.html` | Homepage with hero, video, story-scroll, KPIs | `home` | (none) |
+| `experts.html` | Full experts directory (~39 cards grid) | `experts` | `page-profile page-experts` |
+| `presse.html` | Press releases archive (19 CP cards, view + download) | `presse` | `page-profile page-presse` |
+| `elizabeth-adams.html`, `vaibhavi-mehta.html`, `francois-cahu.html`, `emmanuel-jacquemin.html`, `john-conan.html`, `herve-nessi.html` | Individual director profiles | `profile` | `page-profile` |
+
+All pages share same nav, side-menu, footer. Profile/experts/presse pages all have `body.page-profile` (nav stuck + gold).
 
 ## Architecture
 
-### Single-page structure
-Everything lives in `index.html`. Sections are delimited by `<!-- ============ SECTION ============ -->` banner comments. Each section has its own root class (`.hero`, `.about`, `.values`, `.video-section`, `.marquee`, `.story-intro`, `.story-scroll`, `.intro`, `.metrics`, `.solutions`, `.leadership`, `.commit`, `.cta`) — keep that convention when adding sections.
+### Single shared `js/main.js` + single shared `css/style.css`
+Every page links the same CSS + JS. Barba SPA-style swaps `<main data-barba="container">` contents on navigation.
 
 ### Cache busting
-CSS and JS are loaded with a query string (`href="css/style.css?v=N"` / `src="js/main.js?v=N"`). When you edit either file, **bump the `?v=` number** so Live Server / browsers reload it. The current numbers drift as edits happen; just increment whichever you touched.
+CSS and JS use `?v=N` query strings. Bump version on edit. Current versions drift independently:
+- `style.css?v=112`
+- `main.js?v=37`
 
-### Animation pipeline (`js/main.js`)
-Four CDN libraries cooperate, loaded in this order at the bottom of `index.html`:
-1. **Lenis** — smooth scroll, wraps native scroll
-2. **GSAP + ScrollTrigger** — all animations and scroll-driven reveals
-3. **Barba.js** — page transitions (wired up but currently single-page; `data-barba="wrapper"` is on `<html>`)
+When editing either, increment respective version and update via:
+```bash
+for f in *.html; do sed -i 's|style\.css?v=[0-9]*|style.css?v=NEW|' "$f"; done
+```
 
-`main.js` is defensively coded: every library is checked with `typeof X !== "undefined"` before use. If a CDN fails, the page degrades — animations are skipped but content remains visible. **Preserve this pattern** when adding code that touches GSAP/Lenis/Barba.
+### Meta no-cache (dev)
+Each HTML has:
+```html
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+```
+Forces revalidation in dev. Remove in prod for browser caching.
 
-Key flow on page load (`initPage` → `bootstrap`):
-1. `lockScroll()` runs immediately if `#preloader` exists; an **8s safety timeout** (`safetyUnlock`) force-removes the preloader and unlocks scroll if anything stalls.
-2. `runIntro()` plays the preloader timeline, then resolves.
-3. `heroIntro()` measures hero text and exposes computed widths as CSS custom properties (`--arundo-w`, `--arundo-mr`, `--sub-left-w`, etc.) — the actual reveal transition is CSS-driven via a `.is-revealed` class toggled by a `ScrollTrigger`.
-4. `sectionReveals()`, `scrambleHeroSubtitle()`, `counters()`, `imageParallax()`, `initTilt()`, `initVideoPlayer()`, `initStoryIntroReveal()`, `initStoryScroll()` wire up the rest.
-5. `arrivalNudge()` does a small auto-scroll on arrival (skipped if `prefers-reduced-motion`).
+### Animation pipeline (`js/main.js`, 1216 LOC)
+CDN libs loaded at bottom of every HTML:
+1. **Lenis** — smooth scroll
+2. **GSAP + ScrollTrigger** — animations + scroll triggers
+3. **Barba.js** — page transitions
 
-### Hero subtitle scramble (`scrambleHeroSubtitle`)
-"Qui sommes nous ?" gets a text-scramble reveal (random chars → real chars, left-to-right). The subtitle is hidden by CSS (`width: 0`) until the hero brand gets `.is-revealed`. A **`MutationObserver`** watches that class — when it appears, the scramble waits 350 ms for the width transition, then runs. Don't trigger the scramble on raw scroll position — the subtitle wouldn't be visible yet.
+`main.js` defensively coded: `typeof X !== "undefined"` before use. Page degrades gracefully if CDN fails.
 
-### Inline video player (`initVideoPlayer`)
-The video section is a thumbnail-style inline player (no modal):
-- `<video>` shows its own first frame (`#t=0.1`) as poster.
-- A circular play button is overlaid; clicking it adds `.is-playing` to `.video-player`, which fades/scales the play button out and a close (`×`) button in. CSS handles the entrance/exit symmetry via staggered transition delays.
-- Closing (× button, click outside the player inside the section, or `Escape`) pauses + resets `currentTime` to 0 + removes `.is-playing` → reverse animation plays.
+### `initPage()` flow (called by Barba on every nav)
+```js
+async function initPage() {
+  // Kill stale ScrollTriggers from previous page (Barba accumulation fix)
+  ScrollTrigger.getAll().forEach((st) => st.kill(true));
+  // Clear stuck transforms on .story-inner
+  document.querySelectorAll(".story-inner").forEach((el) => {
+    gsap.set(el, { clearProps: "transform,rotation" });
+  });
 
-### Story scroll (`initStoryScroll`) — the leadership portraits
-Section right after the video. Six `[data-story]` sections stack to introduce the management team. Mechanics:
-1. **Stacking via `position: sticky`**: each section is `sticky; top: 0; height: 100vh`. They naturally pile up at viewport top as you scroll. **The last section is `position: relative`** (`:last-child`) so it sits in normal flow at the end — sticky on the final card glitches (it un-sticks the instant the parent container ends).
-2. **Rotation reveal**: for sections after the first, GSAP scrubs `rotation: 14° → 0°` on `.story-inner` (`transform-origin: bottom left`). Tied to `start: "top bottom" end: "top top"` with `scrub: 1`. Don't switch to `pin: true` — Lenis + ScrollTrigger pin desyncs visibly; sticky is the working approach.
-3. **Scroll-jacking**: one wheel/touch/key input = exactly one section advance, with a `900 ms` cooldown blocking any further input. `lenis.scrollTo(targetY, ...)` performs the move. At the first/last section, the lock releases so the user can scroll out of the container normally. Respects `prefers-reduced-motion` (jacking and rotation both skipped).
+  stickyNav();              // toggle is-stuck/is-gold per page
+  sectionReveals();
+  initHeroMaskOpen();       // ouvre overflow:hidden après reveal (fix italic descender clip)
+  counters();
+  imageParallax();
+  initTilt();
+  initVideoPlayer();
+  initStoryIntroReveal();   // adds is-gold to nav when scroll reaches story-intro
+  initStoryScroll();        // rotation 14°→0° scrub on .story-inner
+  initVideoScroll();        // 3D tilt rotateX 22°→0° + scale 0.78→1 on video on scroll
+  initProfileSwitch();      // tabs + whisper text on profile pages (Parcours/Mission)
+  restartCssAnimations();   // forces CSS keyframes to re-fire after Barba nav
 
-### Story intro reveal (`initStoryIntroReveal`)
-The "En conversation avec…" title before the portraits uses a classic curtain reveal: each line wrapped in a `.story-intro__line { overflow: hidden }`, inner span starts at `translateY(110%)` and transitions to 0 when the section's parent gets `.is-revealed`. Stagger via `transition-delay` on `:nth-child(1)` / `:nth-child(2)` of the lines.
+  if (!__pageBooted) {
+    await runIntro();       // preloader timeline
+    heroIntro();
+    __pageBooted = true;
+  } else {
+    // Barba nav: skip preloader, force final state
+    forceAllReveals();
+  }
+  setupResponsiveRefresh(); // ScrollTrigger.refresh on resize/font-load/img-load
+}
+```
 
-### CSS/JS contract
-Several animations are **class-toggle driven**, not tween-driven — JS adds `.is-revealed` / `.is-open` / `.is-visible` and CSS handles the transition. Examples:
-- Hero brand reveal: `ScrollTrigger` → `brand.classList.add("is-revealed")` → CSS transitions width/margin to values set via custom properties.
-- About card, values cards: same pattern.
-- Side menu: `is-open` on `#sideMenu`, `is-active` on `#menuToggle`.
+### Barba transitions
+```js
+barba.init({
+  transitions: [{ name: "curtain-sweep", leave, enter, beforeEnter, before, after }],
+  views: [
+    { namespace: "home",    beforeEnter() { body.remove("page-profile","page-experts","page-presse"); } },
+    { namespace: "profile", beforeEnter() { body.add("page-profile"); body.remove("page-experts","page-presse"); } },
+    { namespace: "experts", beforeEnter() { body.add("page-profile","page-experts"); body.remove("page-presse"); } },
+    { namespace: "presse",  beforeEnter() { body.add("page-profile","page-presse"); body.remove("page-experts"); } },
+  ],
+});
+```
+**Critical**: each new page namespace MUST be registered in `views` with its body classes — otherwise CSS rules like `body.page-experts` never fire on Barba nav, only hard refresh works.
 
-When adding animations, prefer this class-toggle approach over raw `gsap.to()` if the effect is one-shot — it keeps state inspectable in devtools and survives `ScrollTrigger.refresh()`.
+### `stickyNav()`
+- On `body.page-profile`: nav forced `is-stuck` permanently, no scroll toggle. No `is-gold` (that's CSS-gated via `body:not(.page-profile)`).
+- On home: `is-stuck` toggles at scroll Y > 120px. `is-gold` toggled by `initStoryIntroReveal` ScrollTrigger.
+- On `body.page-experts` / `body.page-presse`: CSS forces gold links via `body.page-experts .nav-sticky .nav-link { color: var(--accent) }`.
 
-### Side menu init
-The side menu is initialized in a **separate early IIFE** (`setupMenuEarly`) that runs independently of GSAP/Lenis. This is intentional: the menu must work even if animation libs fail to load. Don't fold it into `initPage()`.
+### Hero brand reveal (main.html)
+Slide-up curtain style matching `.story-intro__reveal`:
+- "Arundo" wrapped in `.hero__brand-word-wrap` with `overflow: hidden`, padding-bottom for descender room
+- "Re" wrapped in `<span class="hero__brand-word--accent">` nested inside Arundo span, color gold italic
+- Subtitle parts ("Qui sommes" + "nous ?") same slide-up + opacity
+- After 1.5s OR `transitionend`, `initHeroMaskOpen()` adds `.is-mask-open` → `overflow: visible` so italic descender of "Re" displays fully
 
-### Theme tokens
-`css/style.css` defines CSS custom properties under `:root` at the top. There are **two `:root` blocks back-to-back** (lines 7–25 and 27–35) — the second overrides the first to switch from a dark teal theme to a light cream theme. The dark tokens are kept as reference/fallback. If you need to flip themes, edit the second block, not the first.
+**Removed**: `scrambleHeroSubtitle()` (text scramble) — was redundant with slide-up reveal.
 
-Brand colors:
+### Story scroll (main.html)
+Six `[data-story]` sections with sticky stacking + GSAP scrub rotation. `invalidateOnRefresh: true` on each trigger + image-load refresh + resize debounce. Scroll-jacking code was deleted (dead code after `return;`).
+
+### Video scroll (main.html)
+`.video-section--scroll` wraps video in `.video-section__sticky` (200vh tall, sticky pin inside). GSAP scrubs:
+- `rotateX: 22deg → 0deg`
+- `scale: 0.78 → 1`
+- `borderRadius: 56px → 0px`
+
+`perspective: 1400px` on sticky parent for true 3D tilt. `transform-origin: center bottom` — pivot from bottom.
+
+## Experts page (`experts.html`)
+- Hero teal with eyebrow + Fraunces title + lead
+- Filter card with 2 selects (Solutions / Zone)
+- Grid 4-col (responsive 3/2/1) of 39 expert cards
+- Photos from `assets/img/` (6 directors) + `assets/expert/` (33 underwriters)
+- Filenames URL-encoded (`Fran%C3%A7ois%20Cahu%20(1).jpg`, `C%C3%A9dric%20Boureau.jpg`)
+- 6 director cards link to profile pages; others are non-clickable info cards
+
+## Presse page (`presse.html`)
+- Hero with background image `assets/presse/bannière page presse (1).jpg` (opacity 0.65 + gradient overlay)
+- Kit Presse card (links to `https://www.arundore.com/documents/d/arundore/kit-presse-arundo-re-fr`)
+- Maya Tesson contact card (cream bg, dark teal text)
+- 4 years (2026, 2025, 2024, 2023) of communiqués, 19 cards total
+- Each `.cp-card`: thumbnail + badge + title + date + 2 actions (Voir + Télécharger) with eye/download SVG icons
+- All PDF URLs point to real `arundore.com/documents/...` paths
+
+## Experts finder section (profile pages)
+Each director profile has `.experts-finder` section before footer:
+- Filter card hero
+- Aside "Découvrir aussi" + gold CTA "Découvrir tous nos experts" → `experts.html`
+- Horizontal scroll of 5 expert cards (snap)
+
+## Profile pages anatomy
+1. Hero — photo + name + role + LinkedIn
+2. `.profile-combo` — KPIs aside (text + outline + optional quote variant `.profile-kpi--quote`) + Parcours/Mission tabs (`.profile-switch`)
+3. `.experts-finder` — discover more
+4. Footer
+
+### `.profile-switch` (tabs + whisper text)
+Was originally inline `<script>` block duplicated across 6 profile pages (~280 LOC × 6 = waste). Extracted into `initProfileSwitch()` in `main.js`. Profile pages no longer have inline scripts. `data-bound` flag prevents double-bind on Barba re-init.
+
+## CSS structure (`css/style.css`, 4958 LOC)
+Major sections:
+- Theme tokens (`:root` × 2, second overrides first to switch to light theme)
+- Nav sticky (with `is-stuck`, `is-gold` variants, separate pills when stuck)
+- Side menu
+- Sections: hero, about, values, video, marquee, story-intro, story-section, intro, metrics, solutions, leadership, commit, cta
+- Profile page sections (hero, combo, KPIs, switch, experts-finder)
+- Experts page (`.experts-page__*`, `.expert-card`)
+- Presse page (`.presse-page__*`, `.presse-kit`, `.presse-contact`, `.presse-cp`, `.cp-card`)
+- Footer
+- Page curtain + preloader
+
+### Brand colors
 - `--bg: #ffffff` / `--bg-2: #f6f5ef` (light cream)
-- `--fg: #123f3b` (deep teal — Arundo brand green)
+- `--bg-3: #0a3e3a` (deep teal)
+- `--fg: #123f3b` (dark teal)
 - `--accent: #e7b34a` (gold)
+- `--f-serif: "Fraunces"` (used for italic titles, nav links)
 
 ## Assets
 
-- `assets/video/*.mp4` is tracked with **Git LFS** (see `.gitattributes`). When cloning, ensure `git lfs install` has run, or the file will be a pointer stub and the page video will 404.
-- Images live in `assets/img/`. Many filenames include spaces, accented characters, and parentheses (`Hervé Nessi.jpg`, `François Cahu (1).jpg`, `téléchargement 1.png`). **URL-encode them in `src` attributes** (`%20`, `%C3%A9`, etc.) — Live Server / static hosts mostly tolerate raw spaces but encoded paths are safest across browsers.
+```
+assets/
+├── expert/   ← 33 underwriter portraits (Helena Amaral.jpg, Pierre Dionne.jpg, Vignette ludo couleur.png, etc.)
+├── img/      ← Director portraits (Elizabeth Adams.jpg, Hervé Nessi.jpg, etc.) + logo + icons
+├── LOGO/
+├── presse/   ← bannière page presse (1).jpg, maya tesson (1).png, télécharger notre brochure_banniere 650x350 ARUNDO RE.png
+└── video/    ← Git LFS-tracked mp4 (run `git lfs install` on clone)
+```
+
+Filenames with spaces/accents/parens — URL-encode in `src` (`%20`, `%C3%A9`, `%C3%A7`, `(1)`).
 
 ## Conventions
 
-- **Language:** all user-facing strings, comments in HTML, and content are in **French**. Keep new copy in French unless asked otherwise.
-- **Logging:** debug logs are prefixed `[arundore]` — match that prefix for any new `console.*` calls so they're greppable.
-- **Comments in `main.js`:** functions are separated by `/* ---------- NAME ---------- */` banners. Keep that style for new top-level functions.
-- **No frameworks, no build, no npm.** Do not introduce a bundler, TypeScript, or a package.json unless the user explicitly asks. New dependencies should be added as `<script src="https://cdn...">` tags in `index.html`.
+- **Language**: All UI strings in **French**.
+- **Logging**: `[arundore]` prefix on `console.*`.
+- **Function banners** in `main.js`: `/* ---------- NAME ---------- */`.
+- **No frameworks, no npm**. CDN scripts only.
+- **No `index.html`** — entry point is `main.html`.
 
 ## Things that look weird but are intentional
 
-- `dev/null/` contains files named `pre-push`, `post-checkout`, etc. — these are placeholder/disabled git hooks, not a real `/dev/null` redirect. Leave them alone unless asked.
-- The two consecutive `:root` blocks in `style.css` (see above).
-- The 8-second `safetyUnlock` timeout — required because the preloader locks scroll; any failure in the intro chain would otherwise leave the page un-scrollable.
-- The **last `.story-section` uses `position: relative` instead of `sticky`** (via `:last-child`). Sticky on the last card releases the moment the container's bottom touches the viewport, producing a visible glitch. Relative positioning gives a clean final full-screen view.
-- The story-scroll's **scroll-jacking intentionally `preventDefault` on wheel** inside the container with a 900 ms cooldown. Fast/aggressive scrolls feel "blocked" — that's the design (one input = one section).
-- **Global scrollbar is hidden** via `scrollbar-width: none` + `::-webkit-scrollbar { display: none }` on `html`/`body`. Lenis handles smooth scrolling and the visual scrollbar would be redundant; scroll still works fine.
-- **Imports use `?v=N` cache-busting query strings.** Live Server caches CSS/JS aggressively even when files change on disk; bumping the version forces a true reload.
+- **Two `:root` blocks** in `style.css` (lines 7–25 dark, 27–35 light). Second overrides first.
+- **8s `safetyUnlock`** force-removes preloader if intro chain hangs.
+- **Last `.story-section` uses `position: relative`** instead of sticky (sticky on last card glitches when parent ends).
+- **`ScrollTrigger.getAll().forEach(kill)` at start of `initPage`** — kills stale triggers from previous Barba page (otherwise triggers accumulate, story rotation gets stuck mid-anim).
+- **`initHeroMaskOpen()`** — removes `overflow:hidden` from hero brand wraps after reveal completes via `transitionend`, so italic Fraunces "Re" descender displays fully.
+- **`.cp-card__thumb`** uses negative margin to escape parent padding (full-bleed thumbnail above content).
+- **Body class management via Barba views** — each namespace MUST add/remove its body class in `beforeEnter`. Missing namespace registration = page CSS broken until hard refresh.
+- **`scrambleHeroSubtitle` removed** — text scramble was visually conflicting with slide-up reveal.
+- **`profile-next` section removed** from profile pages — replaced by `experts-finder` section linking to `experts.html`.
+- **Dead `initStoryScroll` scroll-jacking branch deleted** (~110 LOC after `return;`).
+- **Inline profile-switch script duplicated 6x** — extracted to `main.js` `initProfileSwitch()`.
+
+## Key bugs fixed historically
+
+| Bug | Cause | Fix |
+|-----|-------|-----|
+| Story cards stuck mid-rotation | ScrollTrigger positions cached before images loaded | `invalidateOnRefresh: true` + `ScrollTrigger.refresh()` on img load |
+| Profile-switch broken on Barba 2nd visit | Inline script bound to DOMContentLoaded, never re-ran | Extracted to `initProfileSwitch()` in main.js, called via initPage |
+| Nav resets color on every page load | `stickyNav` re-toggle on Barba nav lost state | Profile pages force `is-stuck` permanently; `is-gold` CSS-gated by `body:not(.page-profile)` |
+| Page experts/presse looks wrong until hard refresh | Barba views didn't handle `experts`/`presse` namespaces, body class never updated | Added 2 views in `barba.init({views: [...]})` |
+| Italic "Re" descender clipped | `overflow: hidden` on mask wrapper clipped Fraunces italic loop | `initHeroMaskOpen` adds `.is-mask-open { overflow: visible }` after reveal `transitionend` |
+| Footer "ARUNDO RE" big text overflowed | `font-size: clamp(70px, 17vw, 260px)` too aggressive at narrow widths | Reduced to `clamp(50px, 13.5vw, 220px)` + `padding 0 4vw` + `box-sizing: border-box` |
