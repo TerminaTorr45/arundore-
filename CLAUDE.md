@@ -24,7 +24,7 @@ Static server preferred over `file://` because `<video>`, Barba history API, COR
 
 | File | Purpose | Barba namespace | Body class |
 |------|---------|-----------------|------------|
-| `accueil.html` | Homepage with hero, video, story-scroll, KPIs | `home` | (none) |
+| `index.html` | Homepage with hero, video, story-scroll, KPIs | `home` | (none) |
 | `experts.html` | Full experts directory (~39 cards grid) | `experts` | `page-profile page-experts` |
 | `presse.html` | Press releases archive (19 CP cards, view + download) | `presse` | `page-profile page-presse` |
 | `elizabeth-adams.html`, `vaibhavi-mehta.html`, `francois-cahu.html`, `emmanuel-jacquemin.html`, `john-conan.html`, `herve-nessi.html` | Individual director profiles | `profile` | `page-profile` |
@@ -117,7 +117,7 @@ barba.init({
 - On home: `is-stuck` toggles at scroll Y > 120px. `is-gold` toggled by `initStoryIntroReveal` ScrollTrigger.
 - On `body.page-experts` / `body.page-presse`: CSS forces gold links via `body.page-experts .nav-sticky .nav-link { color: var(--accent) }`.
 
-### Hero brand reveal (accueil.html)
+### Hero brand reveal (index.html)
 Slide-up curtain style matching `.story-intro__reveal`:
 - "Arundo" wrapped in `.hero__brand-word-wrap` with `overflow: hidden`, padding-bottom for descender room
 - "Re" wrapped in `<span class="hero__brand-word--accent">` nested inside Arundo span, color gold italic
@@ -126,10 +126,10 @@ Slide-up curtain style matching `.story-intro__reveal`:
 
 **Removed**: `scrambleHeroSubtitle()` (text scramble) — was redundant with slide-up reveal.
 
-### Story scroll (accueil.html)
+### Story scroll (index.html)
 Six `[data-story]` sections with sticky stacking + GSAP scrub rotation. `invalidateOnRefresh: true` on each trigger + image-load refresh + resize debounce. Scroll-jacking code was deleted (dead code after `return;`).
 
-### Video scroll (accueil.html)
+### Video scroll (index.html)
 `.video-section--scroll` wraps video in `.video-section__sticky` (200vh tall, sticky pin inside). GSAP scrubs:
 - `rotateX: 22deg → 0deg`
 - `scale: 0.78 → 1`
@@ -206,7 +206,7 @@ Filenames with spaces/accents/parens — URL-encode in `src` (`%20`, `%C3%A9`, `
 - **Logging**: `[arundore]` prefix on `console.*`.
 - **Function banners** in `main.js`: `/* ---------- NAME ---------- */`.
 - **No frameworks, no npm**. CDN scripts only.
-- **No `index.html`** — entry point is `accueil.html`.
+- **No `index.html`** — entry point is `index.html`.
 
 ## Things that look weird but are intentional
 
